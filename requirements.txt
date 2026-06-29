@@ -1,0 +1,22 @@
+# Core
+python-docx>=0.8.11
+PyPDF2>=3.0.0
+python-pptx>=0.6.21
+markdownify>=0.11.6
+ebooklib>=0.18
+chardet>=5.0.0
+beautifulsoup4>=4.12.0
+
+# OCR (at least one required)
+easyocr>=1.7.0          # Recommended: GPU-accelerated, Chinese+English
+# pytesseract>=0.3.10   # Alternative: lighter, requires system Tesseract
+
+# PDF-to-image (for scanned PDF OCR)
+pdf2image>=1.16.0       # Requires poppler system package
+
+# Output formats (optional)
+weasyprint>=60.0        # For PDF output
+jinja2>=3.1.0           # For HTML templating
+
+# Development
+pytest>=7.0.0           # Testing

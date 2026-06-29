@@ -1,0 +1,111 @@
+{
+  "_description": "跨平台微信/QQ文件下载路径定义。字段：base候选基础路径，patterns用于glob发现，subdirs子目录模式。",
+  "_note": "此文件供 file_finder.py 使用，开源社区可提交 PR 添加新平台/版本路径。",
+
+  "wechat": {
+    "windows": {
+      "label": "微信 (Windows)",
+      "candidate_bases": [
+        "%USERPROFILE%\\Documents\\WeChat Files",
+        "%USERPROFILE%\\Documents\\WXWork",
+        "%APPDATA%\\Tencent\\WeChat",
+        "%LOCALAPPDATA%\\Tencent\\WeChat"
+      ],
+      "wxid_pattern": "wxid_*",
+      "subdirs": {
+        "downloaded_files": "FileStorage\\File",
+        "chat_attachments": "FileStorage\\MsgAttach",
+        "images": "FileStorage\\Image",
+        "videos": "FileStorage\\Video"
+      },
+      "custom_path_registry_key": "HKEY_CURRENT_USER\\Software\\Tencent\\WeChat\\FileSavePath",
+      "config_files": [
+        "%USERPROFILE%\\Documents\\WeChat Files\\All Users\\config\\mmconfig.ini"
+      ]
+    },
+    "macos": {
+      "label": "微信 (macOS)",
+      "candidate_bases": [
+        "~/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat"
+      ],
+      "subdirs": {
+        "message_temp": "{version}/Message/MessageTemp",
+        "downloaded_files": "Data/WeChat Files"
+      },
+      "config_files": [
+        "~/Library/Preferences/com.tencent.xinWeChat.plist"
+      ]
+    },
+    "linux": {
+      "label": "微信 (Linux)",
+      "candidate_bases": [
+        "~/Documents/WeChat Files",
+        "~/.deepinwine/Deepin-WeChat/drive_c/users/*/My Documents/WeChat Files"
+      ],
+      "wxid_pattern": "wxid_*",
+      "subdirs": {
+        "downloaded_files": "FileStorage/File"
+      }
+    }
+  },
+
+  "qq": {
+    "windows": {
+      "label": "QQ (Windows)",
+      "candidate_bases": [
+        "%USERPROFILE%\\Documents\\Tencent Files",
+        "%USERPROFILE%\\Documents\\QQ",
+        "%APPDATA%\\Tencent\\QQ"
+      ],
+      "qq_number_pattern": "[0-9]*",
+      "subdirs": {
+        "file_recv": "FileRecv",
+        "mobile_file_recv": "MobileFileRecv"
+      },
+      "custom_path_config": "%APPDATA%\\Tencent\\QQ\\UserDataInfo.ini"
+    },
+    "macos": {
+      "label": "QQ (macOS)",
+      "candidate_bases": [
+        "~/Documents/Tencent",
+        "~/Library/Application Support/QQ",
+        "~/Library/Containers/com.tencent.qq/Data/Library/Application Support/QQ"
+      ],
+      "subdirs": {
+        "file_recv": "FileRecv"
+      }
+    },
+    "linux": {
+      "label": "QQ (Linux)",
+      "candidate_bases": [
+        "~/Documents/Tencent Files",
+        "~/.deepinwine/Deepin-QQ/drive_c/users/*/My Documents/Tencent Files"
+      ],
+      "qq_number_pattern": "[0-9]*",
+      "subdirs": {
+        "file_recv": "FileRecv"
+      }
+    }
+  },
+
+  "generic_fallback": {
+    "windows": [
+      "%USERPROFILE%\\Downloads",
+      "%USERPROFILE%\\Desktop",
+      "%USERPROFILE%\\Documents",
+      "D:\\Downloads",
+      "D:\\大学",
+      "D:\\法学"
+    ],
+    "macos": [
+      "~/Downloads",
+      "~/Desktop",
+      "~/Documents"
+    ],
+    "linux": [
+      "~/Downloads",
+      "~/Desktop",
+      "~/Documents"
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}}</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #333;
+    --heading: #1a1a1a;
+    --border: #e0e0e0;
+    --accent: #1565c0;
+    --exam-critical: #c62828;
+    --exam-important: #e65100;
+    --muted: #757575;
+    --blockquote-bg: #f0f7ff;
+    --code-bg: #f5f5f5;
+    --table-stripe: #f9f9f9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1e1e1e;
+      --text: #d4d4d4;
+      --heading: #e0e0e0;
+      --border: #444;
+      --accent: #64b5f6;
+      --exam-critical: #ef5350;
+      --exam-important: #ff9800;
+      --muted: #999;
+      --blockquote-bg: #1a2a3a;
+      --code-bg: #2a2a2a;
+      --table-stripe: #252525;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    line-height: 1.85;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  h1 { font-size: 2em; color: var(--heading); border-bottom: 2px solid var(--border); padding-bottom: 12px; margin: 40px 0 20px; }
+  h2 { font-size: 1.5em; color: var(--heading); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin: 32px 0 16px; }
+  h3 { font-size: 1.2em; color: var(--heading); margin: 24px 0 12px; }
+  h4 { font-size: 1.05em; color: var(--muted); margin: 16px 0 8px; }
+
+  p { margin: 12px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  ul, ol { padding-left: 24px; margin: 12px 0; }
+  li { margin: 4px 0; }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    font-size: 0.95em;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    text-align: left;
+  }
+  th { background: var(--code-bg); font-weight: 600; }
+  tr:nth-child(even) td { background: var(--table-stripe); }
+
+  blockquote {
+    border-left: 4px solid var(--accent);
+    padding: 12px 18px;
+    margin: 16px 0;
+    background: var(--blockquote-bg);
+    border-radius: 0 8px 8px 0;
+  }
+  blockquote p { margin: 6px 0; }
+
+  code {
+    background: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: "Fira Code", "Cascadia Code", "Consolas", monospace;
+    font-size: 0.9em;
+  }
+
+  pre {
+    background: var(--code-bg);
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  pre code { padding: 0; background: none; }
+
+  /* Exam markers */
+  .exam-critical { color: var(--exam-critical); font-weight: 700; }
+  .exam-important { color: var(--exam-important); font-weight: 700; }
+  .exam-excluded { color: var(--muted); text-decoration: line-through; }
+  .note { color: var(--muted); font-style: italic; }
+
+  /* Sidebar TOC */
+  .toc {
+    position: fixed;
+    left: calc(50% - 460px);
+    top: 40px;
+    width: 200px;
+    max-height: 80vh;
+    overflow-y: auto;
+    font-size: 0.85em;
+    padding-right: 16px;
+    border-right: 1px solid var(--border);
+  }
+  .toc a { display: block; padding: 3px 0; color: var(--muted); }
+  .toc a:hover { color: var(--accent); }
+  .toc .toc-h2 { padding-left: 8px; }
+  .toc .toc-h3 { padding-left: 20px; }
+
+  @media (max-width: 1200px) {
+    .toc { display: none; }
+  }
+
+  /* Print styles */
+  @media print {
+    body { font-size: 11pt; line-height: 1.6; max-width: 100%; padding: 0; }
+    .toc { display: none; }
+    h1 { page-break-before: always; }
+    h1:first-child { page-break-before: avoid; }
+    h2, h3 { page-break-after: avoid; }
+    table { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+{{BODY}}
+</body>
+</html>

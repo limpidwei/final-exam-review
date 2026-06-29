@@ -1,0 +1,172 @@
+{
+  "_description": "关键词建议词典 — 仅用于智能提示，不做自动归类。学生最清楚自己要考什么课，关键词匹配结果仅作为'💡 看起来这些内容跟XX相关'的建议展示，最终以用户命名的课程名为准。",
+  "_role": "suggestion-only — NOT an auto-classifier",
+  "_matching_algorithm": "每个条目独立计分：中文命中+1.0，英文命中+0.8。取最高分条目生成建议（最多3条）。命中<3条则不生成建议。",
+  "_how_to_customize": "开源用户可替换此文件为自己的学校课程关键词。每个学校的课程命名不同：比如有的学校叫'侵权法'独立开课，有的归入'民法下'。替换成本校课程+关键词即可复用整套管线。",
+
+  "subjects": {
+    "01-宪法学": {
+      "name_zh": "宪法学",
+      "name_en": "Constitutional Law",
+      "folder": "01-宪法学",
+      "tags": ["宪法学", "constitutional-law"],
+      "keywords_zh": ["宪法", "基本权利", "国家机构", "立法法", "合宪性", "违宪", "选举", "人大", "国家元首", "宪法解释", "宪法审查", "基本义务", "国家象征", "特别行政区", "民族区域自治", "基层群众自治", "人民主权", "依法治国", "法治国家", "宪法修正"],
+      "keywords_en": ["constitutional", "fundamental rights", "separation of powers", "judicial review", "constitution", "constitutionalism", "bill of rights", "amendment", "federalism", "sovereignty"]
+    },
+
+    "02-民法学": {
+      "name_zh": "民法学",
+      "name_en": "Civil Law",
+      "folder": "02-民法学",
+      "tags": ["民法学", "civil-law"],
+      "keywords_zh": ["民法", "物权", "债权", "合同", "侵权", "婚姻", "继承", "人格权", "法律行为", "意思表示", "代理", "时效", "担保", "所有权", "用益物权", "抵押权", "质押", "留置", "不当得利", "无因管理", "缔约过失", "违约责任", "损害赔偿", "精神损害", "隐私权", "名誉权", "民事责任"],
+      "keywords_en": ["civil law", "tort", "contract", "property", "civil code", "obligation", "damages", "negligence", "strict liability", "nuisance", "consideration", "reliance", "restitution", "unjust enrichment", "good faith"]
+    },
+
+    "03-商法学": {
+      "name_zh": "商法学",
+      "name_en": "Commercial Law",
+      "folder": "03-商法学",
+      "tags": ["商法学", "commercial-law"],
+      "keywords_zh": ["商法", "公司", "合伙", "票据", "保险", "海商", "证券", "破产", "重整", "股东", "董事", "上市", "收购", "信托", "法人", "注册资本", "股权", "有限责任", "股份有限公司", "董事会", "监事会", "信息披露", "内幕交易", "操纵市场", "要约收购", "债权人会议", "破产管理人"],
+      "keywords_en": ["commercial", "corporate", "bankruptcy", "securities", "shareholder", "IPO", "M&A", "merger", "acquisition", "board of directors", "fiduciary duty", "insider trading", "derivative action", "piercing the corporate veil", "limited liability"]
+    },
+
+    "04-刑法学": {
+      "name_zh": "刑法学",
+      "name_en": "Criminal Law",
+      "folder": "04-刑法学",
+      "tags": ["刑法学", "criminal-law"],
+      "keywords_zh": ["刑法", "犯罪", "刑罚", "故意", "过失", "正当防卫", "共犯", "未遂", "量刑", "罪名", "三阶层", "四要件", "构成要件", "违法性", "有责性", "紧急避险", "自首", "立功", "数罪并罚", "缓刑", "假释", "累犯", "刑事责任", "法益", "客观归责"],
+      "keywords_en": ["criminal", "mens rea", "actus reus", "self-defense", "necessity", "duress", "insanity", "accomplice", "attempt", "conspiracy", "homicide", "murder", "manslaughter", "theft", "robbery", "fraud", "sentencing"]
+    },
+
+    "05-民事诉讼法学": {
+      "name_zh": "民事诉讼法学",
+      "name_en": "Civil Procedure",
+      "folder": "05-民事诉讼法学",
+      "tags": ["民事诉讼法学", "civil-procedure"],
+      "keywords_zh": ["民事诉讼法", "管辖", "证据", "证明", "诉", "当事人", "简易程序", "上诉", "再审", "执行", "仲裁", "调解", "起诉", "答辩", "举证", "质证", "认证", "既判力", "诉讼标的", "共同诉讼", "第三人", "代表人诉讼", "公益诉讼", "支付令", "公示催告", "财产保全", "证据保全"],
+      "keywords_en": ["civil procedure", "jurisdiction", "evidence", "res judicata", "due process", "pleading", "discovery", "summary judgment", "trial", "appeal", "class action", "injunction", "arbitration", "mediation", "service of process"]
+    },
+
+    "06-行政诉讼法学": {
+      "name_zh": "行政诉讼法学",
+      "name_en": "Administrative Litigation",
+      "folder": "06-行政诉讼法学",
+      "tags": ["行政诉讼法学", "administrative-law"],
+      "keywords_zh": ["行政诉讼法", "行政", "复议", "国家赔偿", "行政行为", "行政许可", "行政处罚", "听证", "行政强制", "行政裁决", "行政确认", "行政征收", "行政补偿", "行政程序", "正当程序", "比例原则", "信赖保护", "行政裁量", "规范性文件", "行政诉讼", "被告", "受案范围", "合法性审查"],
+      "keywords_en": ["administrative", "judicial review", "due process", "agency", "regulation", "rulemaking", "adjudication", "arbitrary and capricious", "deference", "standing", "ripeness", "exhaustion", "administrative procedure"]
+    },
+
+    "07-经济法学": {
+      "name_zh": "经济法学",
+      "name_en": "Economic Law",
+      "folder": "07-经济法学",
+      "tags": ["经济法学", "economic-law"],
+      "keywords_zh": ["经济法", "反垄断", "反不正当竞争", "消费者", "财税法", "金融法", "银行", "市场监管", "宏观调控", "价格法", "政府采购", "国有资产", "产业政策", "市场支配地位", "经营者集中", "滥用", "虚假宣传", "商业秘密", "消费者权益", "个人所得税", "企业所得税", "增值税", "证券法", "保险法"],
+      "keywords_en": ["antitrust", "competition", "consumer", "tax", "regulation", "market", "monopoly", "oligopoly", "cartel", "merger control", "state aid", "dumping", "subsidy", "financial regulation", "banking", "fiscal", "monetary"]
+    },
+
+    "08-劳动法学": {
+      "name_zh": "劳动法学",
+      "name_en": "Labor Law",
+      "folder": "08-劳动法学",
+      "tags": ["劳动法学", "labor-law"],
+      "keywords_zh": ["劳动法", "劳动合同", "社会保障", "工伤", "最低工资", "工会", "劳动争议", "裁员", "竞业限制", "试用期", "年休假", "加班", "工资", "经济补偿", "赔偿金", "职业病", "生育保险", "医疗保险", "养老保险", "失业保险", "住房公积金", "劳务派遣", "非全日制"],
+      "keywords_en": ["labor", "employment", "social security", "worker", "union", "collective bargaining", "strike", "discrimination", "wrongful dismissal", "minimum wage", "overtime", "workplace safety", "OSHA", "workers compensation", "unemployment"]
+    },
+
+    "09-国际公法": {
+      "name_zh": "国际公法",
+      "name_en": "Public International Law",
+      "folder": "09-国际公法",
+      "tags": ["国际公法", "public-international-law"],
+      "keywords_zh": ["国际法", "条约", "主权", "管辖权", "海洋法", "人道法", "国际法院", "联合国", "领土", "承认", "国家责任", "外交保护", "引渡", "庇护", "难民", "国际刑法", "国际组织", "安理会", "维和", "海洋划界", "专属经济区", "大陆架", "公海", "国际环境法"],
+      "keywords_en": ["public international", "ICJ", "UN", "sovereignty", "treaty", "customary international law", "jus cogens", "erga omnes", "state responsibility", "immunity", "diplomatic", "consular", "territorial", "law of the sea", "UNCLOS", "ICC", "ICTR", "ICTY", "Geneva Convention"]
+    },
+
+    "10-国际私法": {
+      "name_zh": "国际私法",
+      "name_en": "Private International Law",
+      "folder": "10-国际私法",
+      "tags": ["国际私法", "private-international-law"],
+      "keywords_zh": ["国际私法", "冲突法", "法律适用", "涉外", "外国判决", "仲裁裁决", "连结点", "识别", "反致", "公共秩序保留", "法律规避", "最密切联系", "当事人意思自治", "属人法", "属地法", "物权适用", "合同适用", "侵权适用", "婚姻家庭适用", "继承适用", "纽约公约"],
+      "keywords_en": ["private international", "conflict of laws", "choice of law", "jurisdiction", "foreign judgment", "recognition", "enforcement", "renvoi", "ordre public", "connecting factor", "lex fori", "lex loci", "lex domicilii", "party autonomy", "Hague Conference"]
+    },
+
+    "11-国际经济法": {
+      "name_zh": "国际经济法",
+      "name_en": "International Economic Law",
+      "folder": "11-国际经济法",
+      "tags": ["国际经济法", "international-economic-law"],
+      "keywords_zh": ["国际经济法", "WTO", "贸易", "投资", "双边", "区域贸易", "ICSID", "GATT", "GATS", "TRIPS", "最惠国待遇", "国民待遇", "关税", "非关税壁垒", "反倾销", "反补贴", "保障措施", "服务贸易", "与贸易有关的投资措施", "争端解决", "上诉机构", "区域一体化", "BIT", "ISDS", "一带一路"],
+      "keywords_en": ["international economic", "trade law", "investment law", "WTO", "GATT", "GATS", "TRIPS", "ICSID", "BIT", "MFN", "national treatment", "dumping", "subsidy", "safeguard", "dispute settlement", "DSU", "FTA", "customs union", "NAFTA", "USMCA", "CPTPP", "RCEP"]
+    },
+
+    "12-法理学": {
+      "name_zh": "法理学",
+      "name_en": "Jurisprudence",
+      "folder": "12-法理学",
+      "tags": ["法理学", "jurisprudence"],
+      "keywords_zh": ["法理学", "法哲学", "法律方法", "法律解释", "法的本质", "自然法", "实证", "权利", "正义", "法律推理", "法律论证", "法律渊源", "法律效力", "法律体系", "法律文化", "法律与社会", "法治", "立法", "司法", "守法", "法律职业", "奥斯丁", "哈特", "德沃金", "凯尔森", "富勒", "拉德布鲁赫", "法律实证主义", "自然法学", "社会法学", "批判法学"],
+      "keywords_en": ["jurisprudence", "legal philosophy", "natural law", "positivism", "legal realism", "Dworkin", "Hart", "Kelsen", "Fuller", "Radbruch", "rule of law", "justice", "rights", "legal reasoning", "interpretation", "hermeneutics", "legal pluralism", "critical legal studies", "law and economics", "feminist jurisprudence"]
+    },
+
+    "13-知识产权法": {
+      "name_zh": "知识产权法",
+      "name_en": "Intellectual Property Law",
+      "folder": "13-知识产权法",
+      "tags": ["知识产权法", "intellectual-property"],
+      "keywords_zh": ["知识产权", "著作权", "专利", "商标", "版权", "合理使用", "许可", "商业秘密", "独创性", "新颖性", "创造性", "实用性", "显著性", "混淆", "淡化", "驰名商标", "集体商标", "证明商标", "外观设计", "实用新型", "发明", "强制许可", "平行进口", "技术转让", "反不正当竞争"],
+      "keywords_en": ["IP", "copyright", "patent", "trademark", "fair use", "TRIPS", "WIPO", "infringement", "novelty", "non-obvious", "distinctiveness", "likelihood of confusion", "dilution", "trade secret", "compulsory licensing", "moral rights", "Berne Convention", "Paris Convention", "Madrid Protocol", "PCT"]
+    },
+
+    "14-家庭继承法": {
+      "name_zh": "家庭继承法",
+      "name_en": "Family and Succession Law",
+      "folder": "14-家庭继承法",
+      "tags": ["家庭继承法", "family-law"],
+      "keywords_zh": ["家庭", "继承", "婚姻", "夫妻", "子女", "收养", "抚养", "遗嘱", "法定继承", "遗产", "离婚", "彩礼", "同居", "亲子关系", "监护", "赡养", "扶养", "遗赠", "遗赠扶养协议", "特留份", "代位继承", "转继承", "遗产管理人", "夫妻财产", "婚前财产", "婚后财产", "家事", "家庭暴力", "探望权"],
+      "keywords_en": ["family law", "succession", "inheritance", "marriage", "divorce", "adoption", "custody", "alimony", "child support", "prenuptial", "matrimonial property", "probate", "testament", "intestacy", "forced heirship", "trust", "estate planning", "guardianship"]
+    },
+
+    "15-法律职业伦理": {
+      "name_zh": "法律职业伦理",
+      "name_en": "Legal Ethics",
+      "folder": "15-法律职业伦理",
+      "tags": ["法律职业伦理", "legal-ethics"],
+      "keywords_zh": ["职业伦理", "律师", "法官", "检察官", "职业道德", "法律伦理", "司法伦理", "律师执业", "利益冲突", "保密义务", "忠实义务", "职业纪律", "法律职业", "司法考试", "法律共同体", "司法公正", "回避", "举报", "惩戒"],
+      "keywords_en": ["legal ethics", "professional responsibility", "legal profession", "attorney", "bar", "conflict of interest", "attorney-client privilege", "confidentiality", "zealous representation", "candor", "disciplinary", "disbarment", "malpractice", "judicial ethics"]
+    },
+
+    "16-环境资源法": {
+      "name_zh": "环境资源法",
+      "name_en": "Environmental and Resources Law",
+      "folder": "16-环境资源法",
+      "tags": ["环境资源法", "environmental-law"],
+      "keywords_zh": ["环境法", "自然资源", "生态", "污染", "排放", "环境影响评价", "公益诉讼", "预防原则", "污染者负担", "环境权", "生态环境", "损害赔偿", "环境规制", "命令与控制", "排放交易", "碳交易", "气候变化", "生物多样性", "自然保护区", "国家公园", "水土保持", "矿产资源", "水资源", "渔业资源", "森林", "草原", "排污许可"],
+      "keywords_en": ["environmental", "pollution", "ecology", "EIA", "climate", "biodiversity", "precautionary principle", "polluter pays", "sustainable development", "carbon", "emission", "conservation", "natural resources", "wildlife", "endangered species", "NEPA", "EPA", "Clean Air Act", "Clean Water Act", "Paris Agreement"]
+    }
+  },
+
+  "confidence_thresholds": {
+    "high": {"min_hits": 5, "min_gap": 3, "description": "单一学科命中≥5，且领先第二名≥3"},
+    "medium": {"min_hits": 3, "min_gap": 2, "description": "单一学科命中≥3，且领先第二名≥2"},
+    "low": {"min_hits": 2, "min_gap": 0, "description": "单一学科命中≥2，但竞争激烈"},
+    "none": {"description": "无学科命中≥2，需用户手动分类"}
+  },
+
+  "cross_discipline_conflicts": {
+    "_description": "容易混淆的学科对，当出现时降低两个学科的置信度，提示用户介入",
+    "pairs": [
+      ["05-民事诉讼法学", "06-行政诉讼法学"],
+      ["09-国际公法", "11-国际经济法"],
+      ["02-民法学", "14-家庭继承法"],
+      ["03-商法学", "07-经济法学"],
+      ["02-民法学", "07-经济法学"],
+      ["10-国际私法", "11-国际经济法"],
+      ["04-刑法学", "06-行政诉讼法学"]
+    ]
+  }
+}

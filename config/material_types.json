@@ -1,0 +1,198 @@
+{
+  "_description": "法学资料类型分类规则。每种类型定义检测特征、置信度加权、特殊标记和处理管线。",
+  "types": {
+    "textbook": {
+      "name_zh": "教材",
+      "name_en": "textbook",
+      "priority": 1,
+      "detection": {
+        "filename_patterns": ["教材", "教科书", "课本", "textbook", "第.*章", "第.*讲", "chapter", "lecture"],
+        "content_patterns": ["本章要点", "学习目标", "课后习题", "思考题", "本章小结", "CHAPTER", "Learning Objectives"],
+        "structural_hints": ["层级标题深度 ≥3", "含目录结构", "段落编号如 §1.1 或 一、(一)、1."],
+        "weight": 10
+      },
+      "affects_subject_confidence": 1.2,
+      "output_pipeline": "standard",
+      "frontmatter_type": "textbook",
+      "tags": ["textbook", "教材"],
+      "review_relevance": "high"
+    },
+    "lecture_notes": {
+      "name_zh": "课程笔记",
+      "name_en": "lecture_notes",
+      "priority": 2,
+      "detection": {
+        "filename_patterns": ["笔记", "note", "整理", "课堂", "上课", "听课", "随堂"],
+        "content_patterns": ["老师", "教授", "上课", "课堂", "板书", "PPT", "课件", "补充", "→", "=>", "ps:", "注:", "重点标记"],
+        "structural_hints": ["非正式编号", "缩进层次不均", "含个人注释/批注", "有日期头", "含手写风格标记"],
+        "weight": 9
+      },
+      "affects_subject_confidence": 1.0,
+      "output_pipeline": "standard",
+      "frontmatter_type": "course-note",
+      "tags": ["course-note", "笔记"],
+      "review_relevance": "high"
+    },
+    "key_points": {
+      "name_zh": "重点/考点",
+      "name_en": "key_points",
+      "priority": 1,
+      "detection": {
+        "filename_patterns": ["重点", "考点", "必考", "冲刺", "精华", "干货", "总结", "提要", "大纲", "考纲", "范围", "题型"],
+        "content_patterns": ["【★", "【必考】", "【重点】", "【历年真题】", "★★★", "⚠", "❗", "高频", "常考", "不考", "了解即可", "重点掌握", "必须记住", "核心概念"],
+        "structural_hints": ["密集的加粗/高亮", "列表项含★或数字序号", "含'不考'排除标记"],
+        "weight": 12
+      },
+      "affects_subject_confidence": 1.5,
+      "output_pipeline": "key_points_extraction",
+      "frontmatter_type": "exam-key-points",
+      "tags": ["exam-prep", "重点", "考点"],
+      "review_relevance": "highest",
+      "special_handling": "标记为【★重点】体系的一部分，导入后自动关联到 law-review-generator 的 topic_map"
+    },
+    "past_exams": {
+      "name_zh": "往年题",
+      "name_en": "past_exams",
+      "priority": 1,
+      "detection": {
+        "filename_patterns": ["真题", "往年", "期末", "考试", "试卷", "试题", "exam", "考题", "历年", "回忆版", "样题", "模拟"],
+        "content_patterns": ["一、", "二、", "三、", "简答题", "论述题", "案例分析题", "名词解释", "选择题", "判断题", "填空题", "参考答案", "评分标准", "答题要点", "（.*分）", "总分"],
+        "structural_hints": ["Q&A交替结构", "题号+分值标注", "含答题纸/答题区域"],
+        "weight": 11
+      },
+      "affects_subject_confidence": 1.3,
+      "output_pipeline": "exam_extraction",
+      "frontmatter_type": "past-exam",
+      "tags": ["exam-prep", "往年题"],
+      "review_relevance": "highest",
+      "special_handling": "按题型拆分为独立块，标注年份+分值，自动生成考点权重统计"
+    },
+    "case_materials": {
+      "name_zh": "案例材料",
+      "name_en": "case_materials",
+      "priority": 2,
+      "detection": {
+        "filename_patterns": ["案例", "判决", "裁判", "case", "判例", "裁定", "实例", "案情"],
+        "content_patterns": ["原告", "被告", "公诉", "辩护", "法院认为", "判决如下", "裁定", "案情", "争议焦点", "本院认为", "原审", "上诉", "v\\.", "plaintiff", "defendant", "held that"],
+        "structural_hints": ["含当事人信息", "含案号", "含法院名称", "事实+理由+判决三段式"],
+        "weight": 8
+      },
+      "affects_subject_confidence": 1.1,
+      "output_pipeline": "case_extraction",
+      "frontmatter_type": "case-material",
+      "tags": ["case", "案例"],
+      "review_relevance": "high",
+      "special_handling": "提取案情摘要+争议焦点+法院观点+法理分析，嵌入对应考点的复习材料"
+    },
+    "glossary": {
+      "name_zh": "缩略术语表",
+      "name_en": "glossary",
+      "priority": 3,
+      "detection": {
+        "filename_patterns": ["术语", "名词解释", "概念", "glossary", "定义", "缩写", "缩略", "词汇", "词典"],
+        "content_patterns": ["：", "——", "是指", "指的是", "又称", "简称", "即", "definition", "refers to", "缩写", "全称"],
+        "structural_hints": ["术语-定义对", "表格形式（术语|定义）", "字母序排列", "每行一个概念"],
+        "weight": 7
+      },
+      "affects_subject_confidence": 1.0,
+      "output_pipeline": "glossary_extraction",
+      "frontmatter_type": "glossary",
+      "tags": ["glossary", "术语"],
+      "review_relevance": "medium",
+      "special_handling": "提取为术语卡片格式，链接到概念与原则目录，可独立导出 Anki/Quizlet"
+    },
+    "reading_materials": {
+      "name_zh": "阅读材料",
+      "name_en": "reading_materials",
+      "priority": 3,
+      "detection": {
+        "filename_patterns": ["阅读", "文献", "reading", "参考文献", "推荐阅读", "拓展", "补充阅读", "必读"],
+        "content_patterns": ["参考文献", "引用", "参见", "出处", "citation", "reference", "bibliography", "et al", "ibid"],
+        "structural_hints": ["含文献列表", "含脚注/尾注", "学术写作格式"],
+        "weight": 6
+      },
+      "affects_subject_confidence": 0.9,
+      "output_pipeline": "reading_list_extraction",
+      "frontmatter_type": "reading-material",
+      "tags": ["reading", "文献"],
+      "review_relevance": "medium",
+      "special_handling": "如果含章节对应标记，按章节拆分为 MOC 子条目；否则作为学科阅读索引追加"
+    },
+    "academic_paper": {
+      "name_zh": "学术论文",
+      "name_en": "academic_paper",
+      "priority": 3,
+      "detection": {
+        "filename_patterns": ["论文", "paper", "article", "学位", "毕业论文", "开题", "研究"],
+        "content_patterns": ["摘要", "关键词", "abstract", "keywords", "引言", "introduction", "结论", "conclusion", "方法论", "methodology", "文献综述", "literature review", "致谢", "acknowledgment"],
+        "structural_hints": ["含摘要+关键词块", "IMRaD结构", "含DOI/刊名/卷期"],
+        "weight": 5
+      },
+      "affects_subject_confidence": 0.8,
+      "output_pipeline": "paper_extraction",
+      "frontmatter_type": "academic-paper",
+      "tags": ["paper", "论文", "学术"],
+      "review_relevance": "low",
+      "special_handling": "提取摘要+核心论点+方法论，按主题关联到对应学科 MOC。可对接 Zotero MCP 导入"
+    },
+    "statutes": {
+      "name_zh": "法条/法规",
+      "name_en": "statutes",
+      "priority": 2,
+      "detection": {
+        "filename_patterns": ["法条", "法规", "条文", "法典", "statute", "法律文本", "司法解释", "条例", "规定", "办法"],
+        "content_patterns": ["第.*条", "Article", "Section", "款", "项", "目", "施行", "公布", "修订", "修正", "主席令", "国务院令", "最高人民法院", "最高人民检察院"],
+        "structural_hints": ["条-款-项层级结构", "编-章-节-条编号体系", "含施行日期/修订历史"],
+        "weight": 9
+      },
+      "affects_subject_confidence": 1.3,
+      "output_pipeline": "statute_extraction",
+      "frontmatter_type": "statute",
+      "tags": ["statute", "法条"],
+      "review_relevance": "high",
+      "special_handling": "按条拆分为独立卡片，标注修订历史，链接到相关概念卡片"
+    },
+    "syllabus": {
+      "name_zh": "考纲/教学大纲",
+      "name_en": "syllabus",
+      "priority": 1,
+      "detection": {
+        "filename_patterns": ["考纲", "大纲", "教学计划", "syllabus", "课程简介", "课程说明", "考核方式"],
+        "content_patterns": ["课程目标", "教学内容", "学时", "学分", "考核", "成绩构成", "平时成绩", "期末成绩", "先修课程", "教材", "参考书"],
+        "structural_hints": ["含学时分配表", "含成绩比例", "含章节列表+学时"],
+        "weight": 11
+      },
+      "affects_subject_confidence": 1.4,
+      "output_pipeline": "syllabus_extraction",
+      "frontmatter_type": "syllabus",
+      "tags": ["syllabus", "考纲", "exam-prep"],
+      "review_relevance": "highest",
+      "special_handling": "最高优先级：提取考点权重分配，直接作为 law-review-generator 的 topic_map.json 骨架"
+    }
+  },
+
+  "type_priority_for_conflict": [
+    "syllabus",
+    "key_points",
+    "past_exams",
+    "textbook",
+    "statutes",
+    "case_materials",
+    "lecture_notes",
+    "glossary",
+    "reading_materials",
+    "academic_paper"
+  ],
+
+  "type_detection_thresholds": {
+    "high_confidence": 8,
+    "medium_confidence": 5,
+    "low_confidence": 3
+  },
+
+  "special_markers": {
+    "exam_critical": ["【★重点】", "【必考】", "【历年真题】", "【高频】"],
+    "exam_excluded": ["【不考】", "【了解即可】", "【略】"],
+    "quality_flags": ["【待核实】", "【存疑】", "【缺】", "【待补充】"]
+  }
+}
