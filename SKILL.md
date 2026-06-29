@@ -795,31 +795,30 @@ Claude：
 
 ```
 law-import/
-├── SKILL.md                    # 本文件：Claude Code skill 定义（完整工作流）
+├── SKILL.md                    # 唯一源文件 — 7-Phase 完整工作流（导入+复习生成）
 ├── README.md                   # GitHub README：安装/使用/架构/贡献
 ├── LICENSE                     # MIT
 ├── requirements.txt            # Python 依赖
+├── install.py                  # 多 agent 一键安装脚本
+├── agents.json                 # 16 agent 路径映射配置
+├── agents/
+│   └── codex-plugin.json       # Codex 插件元数据
 ├── tools/
 │   ├── file_finder.py         # 跨平台微信/QQ 文件发现
 │   ├── ocr_tool.py            # OCR 引擎（EasyOCR/Tesseract 自动降级）
 │   ├── format_converter.py    # 多格式 → 统一 MD 转换
-│   ├── classifier.py          # 资料类型 + 学科分类器
+│   ├── classifier.py          # 资料类型分类 + 关键词建议
 │   ├── output_writer.py       # MD/HTML/PDF/DOCX 多格式输出
 │   └── chunk_manager.py       # 大文件上下文窗口分段+合并
 ├── config/
 │   ├── platform_paths.json    # 微信/QQ 跨平台路径定义
-│   ├── subject_keywords.json  # 16 学科关键词词典
+│   ├── subject_keywords.json  # 关键词建议词典（仅供参考）
 │   └── material_types.json    # 10 种资料类型检测规则
 ├── templates/
-│   ├── course_moc_template.md     # {课程}概述.md 模板
-│   ├── frontmatter_template.md
-│   ├── html_template.html
-│   └── output_templates/
-├── tests/
-│   ├── test_classifier.py
-│   ├── test_format_converter.py
-│   └── test_fixtures/         # 测试用样例文件
-└── examples/
-    ├── demo_wechat_import.md  # 微信导入演示
-    └── screenshot_before_after.png
+│   └── html_template.html     # HTML 输出模板（暗色模式+打印样式）
+├── examples/
+│   └── demo_usage.md          # 11步完整使用演示
+└── tests/
+    ├── test_classifier.py
+    └── test_fixtures/         # 测试用样例文件
 ```

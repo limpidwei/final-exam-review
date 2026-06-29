@@ -1,0 +1,248 @@
+{
+  "_description": "Multi-agent skill deployment config. Each entry defines where this agent expects skill files. install.py reads this to create the appropriate symlinks/copies.",
+  "_note": "Paths with ~ or %VAR% are expanded at runtime. {skill_name} is replaced with 'law-import'.",
+
+  "agents": {
+    "claude-code": {
+      "name": "Claude Code (CLI)",
+      "type": "skill_md",
+      "paths": {
+        "windows": "~/.claude/skills/{skill_name}/",
+        "macos": "~/.claude/skills/{skill_name}/",
+        "linux": "~/.claude/skills/{skill_name}/"
+      },
+      "files": {
+        "SKILL.md": "SKILL.md"
+      },
+      "checks": [".claude/", "~/.claude/skills/"]
+    },
+
+    "claude-code-ide": {
+      "name": "Claude Code (VS Code / JetBrains)",
+      "type": "skill_md",
+      "paths": {
+        "windows": "%USERPROFILE%/.claude/skills/{skill_name}/",
+        "macos": "~/.claude/skills/{skill_name}/",
+        "linux": "~/.claude/skills/{skill_name}/"
+      },
+      "files": {
+        "SKILL.md": "SKILL.md"
+      },
+      "checks": [".claude/skills/"]
+    },
+
+    "cursor": {
+      "name": "Cursor",
+      "type": "cursor_skill",
+      "paths": {
+        "windows": "%USERPROFILE%/.cursor/skills/{skill_name}/",
+        "macos": "~/.cursor/skills/{skill_name}/",
+        "linux": "~/.cursor/skills/{skill_name}/"
+      },
+      "files": {
+        "SKILL.md": "SKILL.md"
+      },
+      "checks": [".cursor/", "~/.cursor/"]
+    },
+
+    "cursor-rules": {
+      "name": "Cursor Rules (.mdc)",
+      "type": "cursor_rule",
+      "paths": {
+        "windows": "%USERPROFILE%/.cursor/rules/",
+        "macos": "~/.cursor/rules/",
+        "linux": "~/.cursor/rules/"
+      },
+      "files": {
+        "law-import.mdc": "SKILL.md"
+      },
+      "checks": [".cursor/rules/"]
+    },
+
+    "windsurf": {
+      "name": "Windsurf",
+      "type": "skill_md",
+      "paths": {
+        "windows": "%USERPROFILE%/.windsurf/skills/{skill_name}/",
+        "macos": "~/.windsurf/skills/{skill_name}/",
+        "linux": "~/.windsurf/skills/{skill_name}/"
+      },
+      "files": {
+        "SKILL.md": "SKILL.md"
+      },
+      "checks": [".windsurf/", "~/.windsurf/"]
+    },
+
+    "windsurf-rules": {
+      "name": "Windsurf Rules",
+      "type": "windsurf_rule",
+      "paths": {
+        "windows": "%USERPROFILE%/.windsurf/rules/",
+        "macos": "~/.windsurf/rules/",
+        "linux": "~/.windsurf/rules/"
+      },
+      "files": {
+        "law-import.md": "SKILL.md"
+      },
+      "checks": [".windsurf/rules/"]
+    },
+
+    "codex": {
+      "name": "OpenAI Codex CLI",
+      "type": "codex_skill",
+      "paths": {
+        "windows": "%USERPROFILE%/.codex/skills/{skill_name}/",
+        "macos": "~/.codex/skills/{skill_name}/",
+        "linux": "~/.codex/skills/{skill_name}/"
+      },
+      "files": {
+        "SKILL.md": "SKILL.md"
+      },
+      "checks": [".codex/", "~/.codex/"]
+    },
+
+    "codex-plugin": {
+      "name": "OpenAI Codex Plugin",
+      "type": "codex_plugin",
+      "paths": {
+        "windows": "%USERPROFILE%/.codex/plugins/{skill_name}/",
+        "macos": "~/.codex/plugins/{skill_name}/",
+        "linux": "~/.codex/plugins/{skill_name}/"
+      },
+      "files": {
+        "plugin.json": "agents/codex-plugin.json",
+        "SKILL.md": "SKILL.md"
+      },
+      "checks": [".codex/plugins/"]
+    },
+
+    "cline": {
+      "name": "Cline (VS Code)",
+      "type": "clinerules",
+      "paths": {
+        "windows": "%USERPROFILE%/.clinerules/",
+        "macos": "~/.clinerules/",
+        "linux": "~/.clinerules/"
+      },
+      "files": {
+        "law-import.md": "SKILL.md"
+      },
+      "checks": [".clinerules/"]
+    },
+
+    "github-copilot": {
+      "name": "GitHub Copilot",
+      "type": "copilot_instructions",
+      "paths": {
+        "windows": "%USERPROFILE%/.github/",
+        "macos": "~/.github/",
+        "linux": "~/.github/"
+      },
+      "files": {
+        "copilot-instructions.md": "SKILL.md"
+      },
+      "checks": [".github/"]
+    },
+
+    "gemini": {
+      "name": "Gemini CLI",
+      "type": "gemini_skill",
+      "paths": {
+        "windows": "%USERPROFILE%/.gemini/skills/{skill_name}/",
+        "macos": "~/.gemini/skills/{skill_name}/",
+        "linux": "~/.gemini/skills/{skill_name}/"
+      },
+      "files": {
+        "SKILL.md": "SKILL.md"
+      },
+      "checks": [".gemini/", "GEMINI.md"]
+    },
+
+    "opencode": {
+      "name": "OpenCode CLI",
+      "type": "skill_md",
+      "paths": {
+        "windows": "%USERPROFILE%/.opencode/skills/{skill_name}/",
+        "macos": "~/.opencode/skills/{skill_name}/",
+        "linux": "~/.opencode/skills/{skill_name}/"
+      },
+      "files": {
+        "SKILL.md": "SKILL.md"
+      },
+      "checks": [".opencode/", "~/.opencode/"]
+    },
+
+    "kimi-code": {
+      "name": "Kimi Code",
+      "type": "skill_md",
+      "paths": {
+        "windows": "%USERPROFILE%/.kimi/skills/{skill_name}/",
+        "macos": "~/.kimi/skills/{skill_name}/",
+        "linux": "~/.kimi/skills/{skill_name}/"
+      },
+      "files": {
+        "SKILL.md": "SKILL.md"
+      },
+      "checks": [".kimi/", "~/.kimi/"]
+    },
+
+    "opencalw": {
+      "name": "OpenCalw",
+      "type": "skill_md",
+      "paths": {
+        "windows": "%USERPROFILE%/.opencalw/skills/{skill_name}/",
+        "macos": "~/.opencalw/skills/{skill_name}/",
+        "linux": "~/.opencalw/skills/{skill_name}/"
+      },
+      "files": {
+        "SKILL.md": "SKILL.md"
+      },
+      "checks": [".opencalw/", "~/.opencalw/"]
+    },
+
+    "hermes": {
+      "name": "Hermes Agent (Obsidian)",
+      "type": "hermes_note",
+      "paths": {
+        "windows": null,
+        "macos": null,
+        "linux": null
+      },
+      "note": "Hermes reads skills via Obsidian seekstone MCP. Install by writing a skill note to the vault.",
+      "vault_path": "法学知识库/_附件/AI-Skills/law-import.md",
+      "checks": ["法学知识库/"]
+    },
+
+    "augment": {
+      "name": "Augment Code",
+      "type": "augment_rule",
+      "paths": {
+        "windows": "%USERPROFILE%/.augment/rules/",
+        "macos": "~/.augment/rules/",
+        "linux": "~/.augment/rules/"
+      },
+      "files": {
+        "law-import.md": "SKILL.md"
+      },
+      "checks": [".augment/"]
+    },
+
+    "continue": {
+      "name": "Continue.dev",
+      "type": "continue_rule",
+      "paths": {
+        "windows": "%USERPROFILE%/.continue/rules/",
+        "macos": "~/.continue/rules/",
+        "linux": "~/.continue/rules/"
+      },
+      "files": {
+        "law-import.md": "SKILL.md"
+      },
+      "checks": [".continue/"]
+    }
+  },
+
+  "skill_name": "law-import",
+  "canonical_source": "SKILL.md",
+  "canonical_source_description": "All agent wrappers reference this single canonical SKILL.md. The install script copies or symlinks it. No content duplication."
+}

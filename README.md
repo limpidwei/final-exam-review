@@ -17,17 +17,16 @@ pip install -r requirements.txt
 
 # 2. 可选：安装 OCR 引擎（用于扫描件/图片）
 pip install easyocr          # 推荐：GPU加速，中英混合识别
-# 或
-pip install pytesseract      # 轻量，需额外安装 Tesseract 引擎
 
-# 3. 在 Claude Code 中使用
-# 将 law-import/ 文件夹复制到 ~/.claude/skills/
-# 然后说："/law-import"
+# 3. 一键安装到所有已安装的 AI Coding Agent
+python install.py             # 自动检测 → 安装到对应位置
+python install.py --list      # 查看支持哪些 agent
 
-# 4. 纯命令行模式（不需要 Claude Code）
-python tools/file_finder.py --platform wechat          # 发现微信下载的法学文件
-python tools/format_converter.py -i 笔记.docx -m docx2md  # 转换格式
-python tools/classifier.py -i 笔记.md -m full          # 分类文件
+# 4. 在任意支持的 Agent 中使用
+# Claude Code:     /law-import
+# Codex:           /law-import
+# Cursor:          说 "法学导入" 或 /law-import
+# 其他:            说 "帮我整理法学资料"
 python tools/output_writer.py -i ./法学/ -f all         # 生成输出
 ```
 
@@ -61,27 +60,55 @@ python tools/output_writer.py -i ./法学/ -f all         # 生成输出
 
 ```
 law-import/
-├── SKILL.md                    # Claude Code Skill 完整工作流定义
-├── README.md                   # 本文件
-├── requirements.txt            # Python 依赖
+├── SKILL.md                    # 唯一源文件 — 7-Phase 完整工作流
+├── README.md
+├── LICENSE                     # MIT
+├── requirements.txt
+├── install.py                  # 多 agent 一键安装脚本
+├── agents.json                 # 16 agent 路径映射配置
+├── agents/
+│   └── codex-plugin.json       # Codex 插件元数据
 ├── tools/
-│   ├── file_finder.py          # 跨平台微信/QQ文件发现
-│   ├── ocr_tool.py             # OCR引擎（EasyOCR/Tesseract自动降级）
-│   ├── format_converter.py     # 多格式→统一Markdown
-│   ├── classifier.py           # 资料类型分类+关键词建议
-│   ├── chunk_manager.py        # 大文件上下文窗口分段+合并
-│   └── output_writer.py        # MD/HTML/PDF/DOCX多格式输出
+│   ├── file_finder.py
+│   ├── ocr_tool.py
+│   ├── format_converter.py
+│   ├── classifier.py
+│   ├── chunk_manager.py
+│   └── output_writer.py
 ├── config/
-│   ├── material_types.json     # 10种资料类型检测规则+权重
-│   ├── subject_keywords.json   # 关键词建议词典（仅供参考，用户命名优先）
-│   └── platform_paths.json     # 微信/QQ跨平台路径定义
+│   ├── material_types.json
+│   ├── subject_keywords.json
+│   └── platform_paths.json
 ├── templates/
-│   └── html_template.html      # HTML输出模板
+│   └── html_template.html
 └── examples/
-    └── demo_usage.md           # 使用演示
+    └── demo_usage.md
 ```
 
-## 支持的平台
+## 支持的 AI Coding Agents
+
+一键安装到 16 个 agent。`python install.py` 自动检测已安装的 agent 并部署。
+
+| Agent | 类型 | 检测方式 | 安装位置 |
+|-------|------|---------|---------|
+| Claude Code (CLI) | skill_md | `~/.claude/` | `.claude/skills/law-import/` |
+| Claude Code (IDE) | skill_md | `.claude/skills/` | `.claude/skills/law-import/` |
+| Cursor | skill + rule | `~/.cursor/` | `.cursor/skills/` + `.cursor/rules/` |
+| Windsurf | skill + rule | `~/.windsurf/` | `.windsurf/skills/` + `.windsurf/rules/` |
+| Codex (OpenAI) | skill + plugin | `~/.codex/` | `.codex/skills/` + `.codex/plugins/` |
+| Cline (VS Code) | clinerules | `~/.clinerules/` | `.clinerules/law-import.md` |
+| GitHub Copilot | instructions | `~/.github/` | `.github/copilot-instructions.md` |
+| Gemini CLI | skill_md | `~/.gemini/` | `.gemini/skills/law-import/` |
+| OpenCode CLI | skill_md | `~/.opencode/` | `.opencode/skills/law-import/` |
+| Kimi Code | skill_md | `~/.kimi/` | `.kimi/skills/law-import/` |
+| OpenCalw | skill_md | `~/.opencalw/` | `.opencalw/skills/law-import/` |
+| Hermes (Obsidian) | vault note | `法学知识库/` | Obsidian vault skill note |
+| Augment Code | rule | `~/.augment/` | `.augment/rules/law-import.md` |
+| Continue.dev | rule | `~/.continue/` | `.continue/rules/law-import.md` |
+
+**只有一个源文件** — `SKILL.md`。所有 agent 指向同一份内容，`install.py` 负责拷贝/链接。
+
+## 支持的操作系统
 
 | 平台 | 微信 | QQ | 通用扫描 |
 |------|------|-----|---------|
