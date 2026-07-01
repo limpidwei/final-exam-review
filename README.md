@@ -11,22 +11,17 @@
 
 ## 快速开始
 
+**没有 Python 也能用。** 约 70% 的功能零依赖直接跑（Claude 原生能力）。只有读取 Word/PDF/PPT/图片时需要 Python。
+
 ```bash
-# 1. 安装依赖
-pip install -r requirements.txt
+# 零依赖起步（Tier 0）——什么也不用装，直接说 "/law-import"
+# 文本文件 (.md .txt .html) 全支持，分类/整理/复习生成都能做
 
-# 2. 可选：安装 OCR 引擎（用于扫描件/图片）
-pip install easyocr          # 推荐：GPU加速，中英混合识别
-
-# 3. 一键安装到所有已安装的 AI Coding Agent
-python install.py             # 自动检测 → 安装到对应位置
-python install.py --list      # 查看支持哪些 agent
-
-# 4. 在任意支持的 Agent 中使用
-# Claude Code:     /law-import
-# Codex:           /law-import
-# Cursor:          说 "法学导入" 或 /law-import
-# 其他:            说 "帮我整理法学资料"
+# 完整能力（Tier 1+2）——5 分钟装好
+python setup.py                  # 检测环境 + 显示能力层级
+pip install -r requirements.txt  # 核心依赖（Word/PDF/PPT提取）
+pip install easyocr              # OCR 可选（扫描件/图片）
+python install.py                # 部署到你的 AI agent
 python tools/output_writer.py -i ./法学/ -f all         # 生成输出
 ```
 
@@ -65,6 +60,7 @@ law-import/
 ├── LICENSE                     # MIT
 ├── requirements.txt
 ├── install.py                  # 多 agent 一键安装脚本
+├── setup.py                    # 环境检测 + 依赖安装引导
 ├── agents.json                 # 16 agent 路径映射配置
 ├── agents/
 │   └── codex-plugin.json       # Codex 插件元数据
@@ -115,6 +111,27 @@ law-import/
 | Windows 10/11 | ✅ | ✅ | ✅ |
 | macOS | ✅ | ✅ | ✅ |
 | Linux | ✅ | ✅ | ✅ |
+
+## 没装 Python 怎么办？
+
+| 你有的文件 | 没 Python 能处理吗？ | 需要什么？ |
+|-----------|---------------------|-----------|
+| `.md` `.txt` `.html` | ✅ 直接处理 | 零依赖 |
+| 资料分类 / 课程命名 / 目录创建 | ✅ 直接处理 | Claude 原生 |
+| 复习资料生成 (Phase 7) | ✅ 直接处理 | Claude 原生 |
+| `.docx` Word 文档 | ❌ 需要 Python | `pip install python-docx` |
+| `.pptx` PPT 课件 | ❌ 需要 Python | `pip install python-pptx` |
+| `.pdf` (文本) | ❌ 需要 Python | `pip install PyPDF2` |
+| `.pdf` (扫描) / `.png` `.jpg` | ❌ 需要 Python + OCR | `pip install easyocr` |
+
+**降级行为**：遇到需要 Python 的文件时，skill 不会报错崩溃——标记为 `[待转换: 需 Python]`，跳过，继续处理其他文件。最后汇总"X 个成功，Y 个待转换"。
+
+**安装 Python**：
+- Windows: `winget install Python.Python.3.12`
+- macOS: `brew install python@3.12`
+- Linux: `sudo apt install python3 python3-pip`
+
+然后 `pip install -r requirements.txt`，重新跑一遍导入即可转换之前跳过的文件。
 
 ## 支持的文件格式
 
