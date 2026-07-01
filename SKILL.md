@@ -1,6 +1,6 @@
 ---
 name: law-import
-description: 法学资料一站式工作流。自动发现微信/QQ下载的法学资料（或用户指定路径），模型视觉优先→OCR降级的多模态归一化，8维逐层资料类型分类（教材/笔记/重点/往年题/案例/术语表/阅读材料/论文/考纲），由用户命名课程+确认教材笔记优先级，按章节拆分整合源材料，结构化输出（概念对比表/步骤图/思维模板），内置逐章复习生成+考点速记，默认PDF输出。Use when user mentions "法学导入", "导入资料", "整理下载", "从微信整理", "从QQ整理", "法学资料整理", "复习资料", "整理复习", "备考材料", "期末复习", "法学期末", "生成复习" or wants to import law study materials or generate exam review materials.
+description: 法学期末复习资料生成。从微信/QQ/本地文件自动发现法学资料→多模态归一化→逐章分类整合→生成复习稿PDF。Use when user mentions anything about organizing or generating study materials — "法学导入", "导入资料", "整理下载", "从微信整理", "从QQ整理", "法学资料整理", "复习资料", "整理复习", "备考材料", "期末复习", "法学期末", "生成复习", "帮我整理法学笔记", "帮我整理一下法学资料", "帮我生成复习资料", "把笔记整理成复习材料", "整理一下我的法学资料", "期末备考", "考试复习", "考前冲刺", "帮我整理XX法笔记", "生成XX法复习", "法学笔记整理", "法律复习", "法考复习", "法律笔记", "法学备考", "复习材料生成", "笔记转复习", "一键整理法学资料", "期末重点整理", or any similar request about organizing or reviewing law/course study materials. Skill name for direct invocation: /law-import
 ---
 
 # 法学资料一站式工作流
