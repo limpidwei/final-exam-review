@@ -1,6 +1,6 @@
-# law-import
+# 法学期末复习资料生成
 
-**法学资料一站式工作流** — 从微信/QQ自动发现 → 分类整理 → 复习资料生成，一条管线走到底。
+**法学资料一站式工作流** — 微信/QQ下载 → 自动整理 → 逐章复习稿PDF，一条管线走到底。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
