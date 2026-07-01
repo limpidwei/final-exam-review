@@ -9,21 +9,28 @@
 
 把微信/QQ里乱七八糟下载的法学资料（课件、笔记、往年题、案例...），自动整理成按课程分类的项目目录，**并直接生成逐章复习稿 PDF**。
 
-## 快速开始
+## 安装（一条命令）
 
-**没有 Python 也能用。** 约 70% 的功能零依赖直接跑（Claude 原生能力）。只有读取 Word/PDF/PPT/图片时需要 Python。
+打开终端，复制对应平台的命令，回车。30 秒装完。
 
-```bash
-# 零依赖起步（Tier 0）——什么也不用装，直接说 "/law-import"
-# 文本文件 (.md .txt .html) 全支持，分类/整理/复习生成都能做
-
-# 完整能力（Tier 1+2）——5 分钟装好
-python setup.py                  # 检测环境 + 显示能力层级
-pip install -r requirements.txt  # 核心依赖（Word/PDF/PPT提取）
-pip install easyocr              # OCR 可选（扫描件/图片）
-python install.py                # 部署到你的 AI agent
-python tools/output_writer.py -i ./法学/ -f all         # 生成输出
+### Windows（PowerShell）
+```powershell
+git clone https://github.com/limpidwei/law-exam-prep.git $env:USERPROFILE\.claude\skills\fuxi; cd $env:USERPROFILE\.claude\skills\fuxi; pip install -r requirements.txt 2>$null; python install.py
 ```
+
+### macOS（Terminal）
+```bash
+git clone https://github.com/limpidwei/law-exam-prep.git ~/.claude/skills/fuxi && cd ~/.claude/skills/fuxi && pip install -r requirements.txt 2>/dev/null; python3 install.py
+```
+
+### Linux（Terminal）
+```bash
+git clone https://github.com/limpidwei/law-exam-prep.git ~/.claude/skills/fuxi && cd ~/.claude/skills/fuxi && pip install -r requirements.txt 2>/dev/null; python3 install.py
+```
+
+装完直接用。任意 AI Coding Agent 里说 `/fuxi` 或 "帮我整理法学资料"。
+
+**没有 Python？** 也能用——Tier 0 模式下 `.md` `.txt` `.html` 直接处理，资料分类、课程命名、复习生成全支持。遇到 `.docx` `.pptx` 会提示你补装 Python。
 
 ## 它能做什么
 
