@@ -82,7 +82,23 @@
       "frontmatter_type": "case-material",
       "tags": ["case", "案例"],
       "review_relevance": "high",
-      "special_handling": "提取案情摘要+争议焦点+法院观点+法理分析，嵌入对应考点的复习材料"
+      "special_handling": "六段式结构化提取：案情事实→当事人诉求/辩护→争议焦点归纳→裁判结果→关键论证→确立原则/后续影响。按章节知识点匹配归属：章节内引用→嵌入该章节；单独文件且单章节→嵌入；单独文件跨多章节且后文章节为核心→放笔记最后（综合性案例）。案例后附Q&A→逐题解答分析。",
+      "case_structure_template": {
+        "facts": "案情事实：客观案情经过",
+        "claims_defenses": "当事人诉求/辩护：原告主张 / 被告抗辩",
+        "disputed_issues": "争议焦点归纳：法院提炼的法律问题",
+        "judgment": "裁判结果：判决/裁定结论",
+        "key_reasoning": "关键论证：法院的推理链条",
+        "principle_impact": "确立原则/后续影响：判例确立的法律规则 / 对后续案件的影响"
+      },
+      "case_placement_rules": {
+        "embedded_in_chapter": "案例在笔记/课件某个章节内被引用 → 嵌入该章节复习稿",
+        "standalone_single_chapter": "单独文件，仅涉及单一章节 → 嵌入对应章节",
+        "standalone_cross_chapter_non_core": "涉及多章节但后文章节非核心 → 嵌入主要涉及章节",
+        "standalone_cross_chapter_core": "涉及多章节且后文章节为核心 → 放笔记最后作为综合性案例",
+        "with_qa": "案例后附Q&A问题 → 基于案例内容逐题解答分析（案情仍六段式提供）",
+        "judgment_criteria": "判断依据：案例在笔记/课件中是章节内引用，还是独立综合案例文件"
+      }
     },
     "glossary": {
       "name_zh": "缩略术语表",
@@ -135,23 +151,6 @@
       "review_relevance": "low",
       "special_handling": "提取摘要+核心论点+方法论，按主题关联到对应学科 MOC。可对接 Zotero MCP 导入"
     },
-    "statutes": {
-      "name_zh": "法条/法规",
-      "name_en": "statutes",
-      "priority": 2,
-      "detection": {
-        "filename_patterns": ["法条", "法规", "条文", "法典", "statute", "法律文本", "司法解释", "条例", "规定", "办法"],
-        "content_patterns": ["第.*条", "Article", "Section", "款", "项", "目", "施行", "公布", "修订", "修正", "主席令", "国务院令", "最高人民法院", "最高人民检察院"],
-        "structural_hints": ["条-款-项层级结构", "编-章-节-条编号体系", "含施行日期/修订历史"],
-        "weight": 9
-      },
-      "affects_subject_confidence": 1.3,
-      "output_pipeline": "statute_extraction",
-      "frontmatter_type": "statute",
-      "tags": ["statute", "法条"],
-      "review_relevance": "high",
-      "special_handling": "按条拆分为独立卡片，标注修订历史，链接到相关概念卡片"
-    },
     "syllabus": {
       "name_zh": "考纲/教学大纲",
       "name_en": "syllabus",
@@ -176,13 +175,41 @@
     "key_points",
     "past_exams",
     "textbook",
-    "statutes",
     "case_materials",
     "lecture_notes",
     "glossary",
     "reading_materials",
     "academic_paper"
   ],
+
+  "bilingual_annotation_rules": {
+    "_description": "双语标注策略。根据 language_mode 决定什么需要标注、标注到什么程度。",
+    "mode_1_zh_dominant_en_annotation": {
+      "name": "中文主体 + 英文关键表达标注",
+      "target_user": "英语阅读慢、中文理解快、但必须应考英文的学生",
+      "body_language": "zh",
+      "annotate": {
+        "abbreviations": {"rule": "首次出现的英文缩写 → 标注全称+中文", "example": "CISG (United Nations Convention on Contracts for the International Sale of Goods, 联合国国际货物销售合同公约)"},
+        "key_terms": {"rule": "决定答题得分的术语 → 括号标注英文", "example": "对价 (consideration)、允诺禁反言 (promissory estoppel)"},
+        "key_phrases": {"rule": "考试中必须准确使用的短语 → 标注英文", "example": "注意义务 (duty of care)、举证责任 (burden of proof)"},
+        "key_sentences": {"rule": "判例法标准表述/法条原文关键句 → 双语引用", "example": "*The neighbor principle: You must take reasonable care...* (邻人原则：你必须采取合理注意……)"}
+      },
+      "annotation_strategy": "分层标注：首次出现完整标注（中文+英文），后续出现可仅保留英文关键词"
+    },
+    "mode_2_en_dominant_zh_annotation": {
+      "name": "英文主体 + 中文难词标注",
+      "target_user": "英语好、用英文复习、遇到超纲词汇需要中文辅助的学生",
+      "body_language": "en",
+      "annotate": {
+        "latin_french_terms": {"rule": "拉丁文/法语法律专有名词 → 括号标注中文", "example": "*force majeure* (不可抗力), *res judicata* (既判力)"},
+        "difficult_terms": {"rule": "超出日常词汇量的学术/法律术语 → 标注中文", "example": "promulgate (颁布), encumbrance (权利负担)"},
+        "non_intuitive_phrases": {"rule": "英文中不直观的专业表达 → 标注中文", "example": "*ratio decidendi* (判决理由), *obiter dicta* (附带意见)"}
+      },
+      "annotation_strategy": "仅标注难词生词专有名词，常见法律术语不标注（如 contract, negligence 等基础词汇不需要中文）"
+    },
+    "mode_3_zh_only": {"name": "纯中文", "rule": "仅保留中文。英文术语如原文仅有英文则保留原文。"},
+    "mode_4_en_only": {"name": "纯英文", "rule": "仅保留英文。中文术语如原文仅有中文则保留原文。"}
+  },
 
   "type_detection_thresholds": {
     "high_confidence": 8,

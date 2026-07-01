@@ -201,16 +201,19 @@
     },
 
     "hermes": {
-      "name": "Hermes Agent (Obsidian)",
+      "name": "Hermes Agent (Obsidian) [DEPRECATED]",
       "type": "hermes_note",
+      "deprecated": true,
+      "deprecation_note": "Obsidian vault integration removed in v2. Most users don't have Obsidian. Install as a standard skill instead.",
       "paths": {
-        "windows": null,
-        "macos": null,
-        "linux": null
+        "windows": "~/.claude/skills/{skill_name}/",
+        "macos": "~/.claude/skills/{skill_name}/",
+        "linux": "~/.claude/skills/{skill_name}/"
       },
-      "note": "Hermes reads skills via Obsidian seekstone MCP. Install by writing a skill note to the vault.",
-      "vault_path": "法学知识库/_附件/AI-Skills/law-import.md",
-      "checks": ["法学知识库/"]
+      "files": {
+        "SKILL.md": "SKILL.md"
+      },
+      "checks": [".claude/skills/"]
     },
 
     "augment": {

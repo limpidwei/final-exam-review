@@ -100,37 +100,10 @@ def install_agent(config: dict, agent_key: str, dry_run: bool = False) -> dict:
 
     result = {"agent": agent_key, "status": "unknown", "actions": []}
 
-    # Hermes special case: write to Obsidian vault
+    # Hermes deprecated in v2: treat as standard skill_md agent
     if agent_type == "hermes_note":
-        vault_path = agent.get("vault_path")
-        if vault_path:
-            # Check if Obsidian vault exists
-            vault_home = os.path.expanduser("~/Documents/Obsidian")
-            candidates = [
-                vault_home,
-                os.path.expanduser("~/Obsidian"),
-                os.path.expanduser("~/Documents/Knowledge"),
-            ]
-            vault_root = None
-            for c in candidates:
-                if os.path.isdir(c):
-                    vault_root = c
-                    break
-
-            if vault_root:
-                full_path = os.path.join(vault_root, vault_path)
-                if not dry_run:
-                    os.makedirs(os.path.dirname(full_path), exist_ok=True)
-                    shutil.copy2(SCRIPT_DIR / "SKILL.md", full_path)
-                result["status"] = "installed"
-                result["actions"].append(f"Wrote {full_path}")
-            else:
-                result["status"] = "skipped"
-                result["actions"].append("Obsidian vault not found. Install manually.")
-        else:
-            result["status"] = "skipped"
-            result["actions"].append("No vault path configured.")
-        return result
+        # Fall through to standard handling below
+        agent_type = "skill_md"
 
     # Standard file-copy agents
     if not target_base:
