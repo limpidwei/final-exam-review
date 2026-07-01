@@ -1,9 +1,9 @@
 ---
-name: law-import
-description: 法学期末复习资料生成。从微信/QQ/本地文件自动发现法学资料→多模态归一化→逐章分类整合→生成复习稿PDF。Use when user mentions anything about organizing or generating study materials — "法学导入", "导入资料", "整理下载", "从微信整理", "从QQ整理", "法学资料整理", "复习资料", "整理复习", "备考材料", "期末复习", "法学期末", "生成复习", "帮我整理法学笔记", "帮我整理一下法学资料", "帮我生成复习资料", "把笔记整理成复习材料", "整理一下我的法学资料", "期末备考", "考试复习", "考前冲刺", "帮我整理XX法笔记", "生成XX法复习", "法学笔记整理", "法律复习", "法考复习", "法律笔记", "法学备考", "复习材料生成", "笔记转复习", "一键整理法学资料", "期末重点整理", or any similar request about organizing or reviewing law/course study materials. Skill name for direct invocation: /law-import
+name: fuxi
+description: 法学期末复习笔记高效整理。从微信/QQ/本地文件自动发现法学资料→多模态归一化→逐章分类整合→生成复习稿PDF。Use when user mentions anything about organizing or generating study materials — "法学导入", "导入资料", "整理下载", "从微信整理", "从QQ整理", "法学资料整理", "复习资料", "整理复习", "备考材料", "期末复习", "法学期末", "生成复习", "帮我整理法学笔记", "帮我整理一下法学资料", "帮我生成复习资料", "把笔记整理成复习材料", "整理一下我的法学资料", "期末备考", "考试复习", "考前冲刺", "帮我整理XX法笔记", "生成XX法复习", "法学笔记整理", "法律复习", "法考复习", "法律笔记", "法学备考", "复习材料生成", "笔记转复习", "一键整理法学资料", "期末重点整理", or any similar request about organizing or reviewing law/course study materials. Skill name for direct invocation: /fuxi
 ---
 
-# 法学资料一站式工作流
+# 法学期末复习笔记高效整理
 
 ## 设计理念
 
