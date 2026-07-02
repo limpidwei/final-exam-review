@@ -14,8 +14,9 @@ easyocr>=1.7.0          # Recommended: GPU-accelerated, Chinese+English
 # PDF-to-image (for scanned PDF OCR)
 pdf2image>=1.16.0       # Requires poppler system package
 
-# Output formats (optional)
-weasyprint>=60.0        # For PDF output
+# Output formats
+fpdf2>=2.7.0            # PDF output — pure Python, zero system deps, works everywhere (primary)
+weasyprint>=60.0        # PDF output — higher quality, needs GTK3 on Windows/Linux (optional upgrade)
 jinja2>=3.1.0           # For HTML templating
 
 # Development

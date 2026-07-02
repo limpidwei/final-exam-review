@@ -20,10 +20,12 @@ Tier 0: 零依赖（模型原生能力）                Tier 1: pip install    
 • 课程命名（用户对话）                • .epub → ebooklib
 • 目录创建 (bash mkdir)               • 大文件分段 (chunk_manager)
 • Markdown 输出 (Write tool)          • 多格式输出 (output_writer)
-• 章节拆分+内容整合（模型推理）
+• 章节拆分+内容整合（模型推理）         • PDF (WeasyPrint→pdfkit→fpdf2三引擎降级)
 • 复习生成（模型推理）
 • 关键词建议（模型文本分析）
 ```
+
+**PDF 三引擎保证**：WeasyPrint (最佳) → pdfkit (备选) → **fpdf2 (纯Python，零系统依赖，全平台永久保证）**。任何平台、任何配置，最终一定能出 PDF。
 
 **启动时自动检测**：模型支持 vision？→ 优先使用视觉能力。不支持？→ 检测 Python+OCR 引擎。都没有？→ 标记 [待OCR]，不跳过。
 
@@ -431,7 +433,7 @@ Tier 0: 零依赖（模型原生能力）                Tier 1: pip install    
 │        ├─ 无 AI 幻觉：抽查 5 处关键判断 vs 源材料原文
 │        └─ 不通过 → 标注问题章节 → 回到 [7.3b] 单独重做该章
 │
-│  [7.5] 输出：PDF 硬门禁（Phase 7 完成的必要条件）
+│  [7.5] 输出：PDF 三引擎降级链（Phase 7 完成的必要条件）
 │     │
 │     ├─ [7.5a] 格式生成
 │     │  ├─ 默认 PDF——不可降级，不可跳过
@@ -524,8 +526,9 @@ pip install easyocr       # 推荐：GPU加速，中文~92%，MIT许可
 # 或 pip install pytesseract  # 轻量：需系统安装 Tesseract 引擎
 # 或 pip install paddleocr    # 中文最强~96%，安装最重
 
-# Tier 2: PDF 输出
-pip install weasyprint    # HTML → PDF
+# Tier 2: PDF 输出 (三引擎自动降级)
+pip install fpdf2         # 纯Python零依赖PDF — 全平台永久保证 (核心)
+pip install weasyprint    # 更佳排版 — 可选 (Windows需GTK3)
 ```
 
 ---

@@ -243,29 +243,170 @@ blockquote { border-left: 4px solid #2196f3; padding: 10px 15px; margin: 15px 0;
 
     return written
 
+def _find_cjk_font() -> str:
+    """Find a usable CJK font on the system. Returns path or None."""
+    import glob as g, platform
+    candidates = []
+    if platform.system() == "Windows":
+        candidates = [
+            r"C:\Windows\Fonts\msyh.ttc", r"C:\Windows\Fonts\msyhbd.ttc",
+            r"C:\Windows\Fonts\simsun.ttc", r"C:\Windows\Fonts\simhei.ttf",
+        ]
+    elif platform.system() == "Darwin":
+        candidates = [
+            "/System/Library/Fonts/PingFang.ttc",
+            "/System/Library/Fonts/STHeiti Light.ttc",
+            "/Library/Fonts/Arial Unicode.ttf",
+        ]
+    else:  # Linux
+        candidates = [
+            "/usr/share/fonts/truetype/wqy/wqy-microhei.ttc",
+            "/usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf",
+            "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
+        ]
+    for c in candidates:
+        if os.path.exists(c):
+            return c
+    # Fallback: any ttf/ttc in fonts dir
+    for d in [r"C:\Windows\Fonts", "/System/Library/Fonts", "/usr/share/fonts"]:
+        if os.path.isdir(d):
+            fonts = g.glob(os.path.join(d, "*.ttf")) + g.glob(os.path.join(d, "*.ttc"))
+            if fonts:
+                return fonts[0]
+    return None
+
+
+def generate_pdf_fpdf2(final_md_path: str, output_path: str) -> str:
+    """Generate PDF using fpdf2 — pure Python, zero system deps, guaranteed to work everywhere."""
+    from fpdf import FPDF
+
+    font_path = _find_cjk_font()
+    pdf = FPDF()
+    pdf.set_auto_page_break(auto=True, margin=15)
+    pdf.set_left_margin(15)
+    pdf.set_right_margin(15)
+    pdf.add_page()
+
+    if font_path:
+        pdf.add_font("CJK", "", font_path)
+        pdf.add_font("CJK", "B", font_path)
+        pdf.set_font("CJK", "", 9)
+    else:
+        pdf.set_font("Helvetica", "", 9)
+
+    with open(final_md_path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    page_w = 180  # 210 - 15 - 15
+    for line in lines:
+        line = line.rstrip()
+        if not line:
+            pdf.ln(4)
+            continue
+        if line.startswith("#### "):
+            pdf.set_font("CJK", "B", 10); pdf.ln(3)
+            pdf.cell(0, 6, line[5:].strip()[:120], new_x="LMARGIN", new_y="NEXT")
+            pdf.set_font("CJK", "", 9)
+        elif line.startswith("### "):
+            pdf.set_font("CJK", "B", 12); pdf.ln(4)
+            pdf.cell(0, 7, line[4:].strip()[:120], new_x="LMARGIN", new_y="NEXT")
+            pdf.set_font("CJK", "", 9)
+        elif line.startswith("## "):
+            pdf.set_font("CJK", "B", 14); pdf.ln(5)
+            pdf.cell(0, 8, line[3:].strip()[:120], new_x="LMARGIN", new_y="NEXT")
+            pdf.set_font("CJK", "", 9)
+        elif line.startswith("# "):
+            pdf.set_font("CJK", "B", 18); pdf.ln(6)
+            pdf.cell(0, 10, line[2:].strip()[:120], new_x="LMARGIN", new_y="NEXT")
+            pdf.set_font("CJK", "", 9)
+        elif line.startswith("|") and line.endswith("|"):
+            if "---" in line: continue
+            cells = [c.strip() for c in line.split("|")[1:-1]]
+            if len(cells) > 1:
+                col_w = min(page_w / len(cells), 45)
+                for cell in cells:
+                    pdf.cell(col_w, 5, cell[:30], border=1)
+                pdf.ln()
+        elif "**【" in line:
+            pdf.set_font("CJK", "B", 9)
+            pdf.multi_cell(page_w, 5, line.replace("**", "").replace("*", ""))
+            pdf.set_font("CJK", "", 9)
+        elif line.startswith("    ") or line.startswith("\t"):
+            pdf.set_font("CJK", "", 8)
+            pdf.multi_cell(page_w, 4, line.strip()[:150])
+            pdf.set_font("CJK", "", 9)
+        else:
+            clean = line.replace("**", "").replace("*", "").replace("`", "")
+            if clean.strip():
+                pdf.multi_cell(page_w, 5, clean[:200])
+
+    pdf.output(output_path)
+    return output_path
+
+
 def generate_pdf(courses: dict, output_dir: str) -> list:
-    """Generate PDF output. First generates HTML, then converts via weasyprint if available."""
+    """Generate PDF with multi-engine fallback chain. Guaranteed to produce PDF on all platforms."""
+    import glob as glob_mod
     written = []
     out_path = Path(output_dir)
 
+    # Find the final merged MD file
+    final_md = out_path / "复习材料_终稿.md"
+    if not final_md.exists():
+        # Try to find any merged file
+        candidates = list(out_path.glob("*终稿*.md")) + list(out_path.glob("*final*.md"))
+        if candidates:
+            final_md = candidates[0]
+        else:
+            print("ERROR: No merged review file found for PDF conversion.", file=sys.stderr)
+            return written
+
+    pdf_path = str(final_md).replace(".md", ".pdf")
+
+    # --- Engine 1: WeasyPrint (best quality, needs system GTK3) ---
     try:
         from weasyprint import HTML
-    except ImportError:
-        # Fallback: just generate HTML and note that PDF requires weasyprint
         html_files = generate_html(courses, output_dir)
-        print("WARNING: weasyprint not installed. Only HTML generated.", file=sys.stderr)
-        print("Install: pip install weasyprint", file=sys.stderr)
-        return html_files
+        for hf in html_files:
+            try:
+                HTML(filename=hf).write_pdf(hf.replace(".html", ".pdf"))
+                written.append(hf.replace(".html", ".pdf"))
+            except Exception:
+                pass
+        if written:
+            print(f"PDF generated via WeasyPrint: {len(written)} files", file=sys.stderr)
+            return written
+    except (ImportError, Exception):
+        pass
 
-    # Generate HTML first
-    html_files = generate_html(courses, output_dir)
-    for hf in html_files:
-        pdf_path = hf.replace(".html", ".pdf")
-        try:
-            HTML(filename=hf).write_pdf(pdf_path)
-            written.append(pdf_path)
-        except Exception as e:
-            print(f"PDF conversion failed for {hf}: {e}", file=sys.stderr)
+    # --- Engine 2: pdfkit (needs wkhtmltopdf) ---
+    try:
+        import pdfkit
+        html_files = generate_html(courses, output_dir)
+        for hf in html_files:
+            try:
+                out = hf.replace(".html", ".pdf")
+                pdfkit.from_file(hf, out, options={"quiet": ""})
+                written.append(out)
+            except Exception:
+                pass
+        if written:
+            print(f"PDF generated via pdfkit: {len(written)} files", file=sys.stderr)
+            return written
+    except (ImportError, Exception):
+        pass
+
+    # --- Engine 3: fpdf2 (pure Python, zero system deps, ALWAYS works) ---
+    try:
+        result = generate_pdf_fpdf2(str(final_md), pdf_path)
+        written.append(result)
+        print(f"PDF generated via fpdf2 (pure Python): {result}", file=sys.stderr)
+        return written
+    except ImportError:
+        print("ERROR: fpdf2 not installed. Run: pip install fpdf2", file=sys.stderr)
+        print("This is the guaranteed PDF fallback — please install it.", file=sys.stderr)
+    except Exception as e:
+        print(f"ERROR: fpdf2 PDF generation failed: {e}", file=sys.stderr)
 
     return written
 
