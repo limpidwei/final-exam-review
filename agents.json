@@ -1,6 +1,6 @@
 {
   "_description": "Multi-agent skill deployment config. Each entry defines where this agent expects skill files. install.py reads this to create the appropriate symlinks/copies.",
-  "_note": "Paths with ~ or %VAR% are expanded at runtime. {skill_name} is replaced with 'law-import'.",
+  "_note": "Paths with ~ or %VAR% are expanded at runtime. {skill_name} is replaced with 'final-review'.",
 
   "agents": {
     "claude-code": {
@@ -54,7 +54,7 @@
         "linux": "~/.cursor/rules/"
       },
       "files": {
-        "law-import.mdc": "SKILL.md"
+        "final-review.mdc": "SKILL.md"
       },
       "checks": [".cursor/rules/"]
     },
@@ -82,7 +82,7 @@
         "linux": "~/.windsurf/rules/"
       },
       "files": {
-        "law-import.md": "SKILL.md"
+        "final-review.md": "SKILL.md"
       },
       "checks": [".windsurf/rules/"]
     },
@@ -125,7 +125,7 @@
         "linux": "~/.clinerules/"
       },
       "files": {
-        "law-import.md": "SKILL.md"
+        "final-review.md": "SKILL.md"
       },
       "checks": [".clinerules/"]
     },
@@ -225,7 +225,7 @@
         "linux": "~/.augment/rules/"
       },
       "files": {
-        "law-import.md": "SKILL.md"
+        "final-review.md": "SKILL.md"
       },
       "checks": [".augment/"]
     },
@@ -239,13 +239,13 @@
         "linux": "~/.continue/rules/"
       },
       "files": {
-        "law-import.md": "SKILL.md"
+        "final-review.md": "SKILL.md"
       },
       "checks": [".continue/"]
     }
   },
 
-  "skill_name": "law-import",
+  "skill_name": "final-review",
   "canonical_source": "SKILL.md",
   "canonical_source_description": "All agent wrappers reference this single canonical SKILL.md. The install script copies or symlinks it. No content duplication."
 }

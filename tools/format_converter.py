@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Multi-format → unified Markdown converter for law-import skill.
+Multi-format → unified Markdown converter for 期末一键复习（Final Review）.
 
 Usage:
     python format_converter.py --input file.docx --mode docx2md

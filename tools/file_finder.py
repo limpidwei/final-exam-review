@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Cross-platform WeChat/QQ file discovery tool for law-import skill.
+Cross-platform WeChat/QQ file discovery tool for 期末一键复习（Final Review）.
 
 Usage:
     python file_finder.py --platform wechat          # Auto-discover WeChat download folders
@@ -168,10 +168,14 @@ def count_files(directory: str, recursive: bool = True) -> int:
         pass
     return count
 
-LAW_KEYWORDS = [
+COURSE_KEYWORDS = [
+    # 通用课程资料
+    "课件", "ppt", "slide", "讲义", "笔记", "note", "阅读", "reading",
+    "复习", "考试", "期末", "重点", "考纲", "大纲", "往年", "真题",
+    "课程", "lecture", "tutorial", "handout", "material", "作业", "quiz",
+    # 法学相关（仍支持）
     "法", "律", "诉", "权", "刑", "民", "商", "宪",
     "合同", "侵权", "犯罪", "证据", "判决", "案例",
-    "笔记", "复习", "考试", "期末", "重点", "考纲",
     "law", "legal", "court", "justice", "civil", "criminal",
     "contract", "tort", "constitution", "procedure", "evidence",
 ]
@@ -184,7 +188,7 @@ DOCUMENT_EXTENSIONS = {
 EXCLUDE_PATTERNS = ["安装", "setup", "license", "readme", "~$"]
 
 def scan_directory(directory: str, max_files: int = 50, days: int = 90) -> list:
-    """Scan a directory for law-related document files."""
+    """Scan a directory for course-related document files."""
     results = []
     cutoff_time = datetime.now() - timedelta(days=days)
     directory = expand_path(directory)
@@ -227,11 +231,11 @@ def scan_directory(directory: str, max_files: int = 50, days: int = 90) -> list:
                 if ext in (".tmp", ".crdownload"):
                     continue
 
-                # Law keyword relevance (lightweight filename check)
-                relevance = sum(1 for kw in LAW_KEYWORDS if kw.lower() in name_lower)
+                # Course keyword relevance (lightweight filename check)
+                relevance = sum(1 for kw in COURSE_KEYWORDS if kw.lower() in name_lower)
                 # Also check parent dir names for context
                 parent_dirs = root.replace(directory, "").lower()
-                relevance += sum(1 for kw in LAW_KEYWORDS if kw.lower() in parent_dirs)
+                relevance += sum(1 for kw in COURSE_KEYWORDS if kw.lower() in parent_dirs)
 
                 # Modified time
                 try:
@@ -286,7 +290,7 @@ def scan_generic(config: dict, max_files: int = 50) -> list:
     return unique[:max_files]
 
 def main():
-    parser = argparse.ArgumentParser(description="Find law-related files from WeChat/QQ/common locations")
+    parser = argparse.ArgumentParser(description="Find course-related files from WeChat/QQ/common locations")
     parser.add_argument("--platform", choices=["wechat", "qq"], help="Platform to search")
     parser.add_argument("--scan", type=str, help="Scan a specific directory")
     parser.add_argument("--scan-all", action="store_true", help="Scan all common download locations")

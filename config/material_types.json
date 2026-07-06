@@ -1,5 +1,5 @@
 {
-  "_description": "法学资料类型分类规则。每种类型定义检测特征、置信度加权、特殊标记和处理管线。",
+  "_description": "课程资料类型分类规则。每种类型定义检测特征、置信度加权、特殊标记和处理管线。",
   "types": {
     "textbook": {
       "name_zh": "教材",
@@ -48,7 +48,7 @@
       "frontmatter_type": "exam-key-points",
       "tags": ["exam-prep", "重点", "考点"],
       "review_relevance": "highest",
-      "special_handling": "标记为【★重点】体系的一部分，导入后自动关联到 law-review-generator 的 topic_map"
+      "special_handling": "标记为【★重点】体系的一部分，导入后自动关联到 topic_map"
     },
     "past_exams": {
       "name_zh": "往年题",
@@ -115,7 +115,7 @@
       "frontmatter_type": "glossary",
       "tags": ["glossary", "术语"],
       "review_relevance": "medium",
-      "special_handling": "提取为术语卡片格式，链接到概念与原则目录，可独立导出 Anki/Quizlet"
+      "special_handling": "提取为术语卡片格式，链接到概念与原则目录"
     },
     "reading_materials": {
       "name_zh": "阅读材料",
@@ -149,7 +149,7 @@
       "frontmatter_type": "academic-paper",
       "tags": ["paper", "论文", "学术"],
       "review_relevance": "low",
-      "special_handling": "提取摘要+核心论点+方法论，按主题关联到对应学科 MOC。可对接 Zotero MCP 导入"
+      "special_handling": "提取摘要+核心论点+方法论，按主题关联到对应课程 MOC"
     },
     "syllabus": {
       "name_zh": "考纲/教学大纲",
@@ -166,7 +166,7 @@
       "frontmatter_type": "syllabus",
       "tags": ["syllabus", "考纲", "exam-prep"],
       "review_relevance": "highest",
-      "special_handling": "最高优先级：提取考点权重分配，直接作为 law-review-generator 的 topic_map.json 骨架"
+      "special_handling": "最高优先级：提取考点权重分配，直接作为 topic_map.json 骨架"
     }
   },
 

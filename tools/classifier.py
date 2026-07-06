@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Material type classifier + subject keyword suggester for law-import skill.
+Material type classifier + subject keyword suggester for 期末一键复习（Final Review）.
 
 Usage:
     python classifier.py --input text.md --mode material_type

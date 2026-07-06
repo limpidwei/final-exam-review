@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Phase 1: Convert all source files to Markdown for law-import skill."""
+"""Phase 1: Convert all source files to Markdown for 期末一键复习（Final Review）."""
 
 import os
 import sys

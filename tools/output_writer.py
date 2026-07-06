@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Multi-format output writer for law-import skill.
+Multi-format output writer for 期末一键复习（Final Review）.
 
 Usage:
     python output_writer.py --input notes/ --format md --output output/
@@ -88,7 +88,7 @@ def generate_md(courses: dict, output_dir: str) -> list:
         moc_lines = [
             f"# {course_name}",
             "",
-            f"> 由 law-import 自动生成 — {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+            f"> 由 期末一键复习 自动生成 — {datetime.now().strftime('%Y-%m-%d %H:%M')}",
             "",
             "## 目录",
             "",
@@ -120,9 +120,9 @@ def generate_md(courses: dict, output_dir: str) -> list:
 
     # Global index
     index_lines = [
-        "# 法学总览",
+        "# 课程总览",
         "",
-        f"> 由 law-import 自动生成 — {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+        f"> 由 期末一键复习 自动生成 — {datetime.now().strftime('%Y-%m-%d %H:%M')}",
         "",
         "## 课程列表",
         "",
@@ -138,7 +138,7 @@ def generate_md(courses: dict, output_dir: str) -> list:
     index_lines.append("- [_原始文件/原始文件索引](_原始文件/原始文件索引.md)")
     index_lines.append("- [_原始文件/项目进度](_原始文件/项目进度.md)")
 
-    index_file = out_path / "法学总览.md"
+    index_file = out_path / "课程总览.md"
     with open(index_file, "w", encoding="utf-8") as f:
         f.write("\n".join(index_lines))
     written.append(str(index_file))
@@ -186,7 +186,7 @@ blockquote { border-left: 4px solid #2196f3; padding: 10px 15px; margin: 15px 0;
 
     for course_name, course_info in courses.items():
         body_parts = [f"<h1>{course_name}</h1>",
-                      f"<p><em>由 law-import 生成 — {datetime.now().strftime('%Y-%m-%d')}</em></p>"]
+                      f"<p><em>由 期末一键复习 生成 — {datetime.now().strftime('%Y-%m-%d')}</em></p>"]
 
         for sub_name in ["笔记", "重点与考纲", "试题", "案例", "法条", "术语", "文献"]:
             if sub_name in course_info["subdirs"]:
@@ -221,7 +221,7 @@ blockquote { border-left: 4px solid #2196f3; padding: 10px 15px; margin: 15px 0;
                     body_parts.append(f"<h3>{title}</h3>")
                     body_parts.append(html_body)
 
-        html_content = template_html.replace("{{TITLE}}", f"{course_name} — 法学复习资料")
+        html_content = template_html.replace("{{TITLE}}", f"{course_name} — 期末复习资料")
         html_content = html_content.replace("{{BODY}}", "\n".join(body_parts))
 
         html_file = out_path / f"{course_name}.html"
@@ -429,7 +429,7 @@ def generate_docx(courses: dict, output_dir: str) -> list:
 
         # Title
         title = doc.add_heading(course_name, level=0)
-        doc.add_paragraph(f"由 law-import 生成 — {datetime.now().strftime('%Y-%m-%d')}")
+        doc.add_paragraph(f"由 期末一键复习 生成 — {datetime.now().strftime('%Y-%m-%d')}")
 
         for sub_name in ["笔记", "重点与考纲", "试题", "案例", "法条", "术语", "文献"]:
             if sub_name in course_info["subdirs"]:
@@ -466,7 +466,7 @@ def generate_docx(courses: dict, output_dir: str) -> list:
     return written
 
 def main():
-    parser = argparse.ArgumentParser(description="Multi-format output writer for law-import")
+    parser = argparse.ArgumentParser(description="Multi-format output writer for 期末一键复习（Final Review）")
     parser.add_argument("--input", "-i", required=True, help="Input directory with course structure")
     parser.add_argument("--format", "-f", choices=["md", "html", "pdf", "docx", "all"],
                         default="md", help="Output format")

@@ -1,17 +1,16 @@
 {
-  "name": "law-import",
+  "name": "final-review",
   "version": "1.0.0",
-  "description": "法学资料一站式工作流 — 从微信/QQ自动发现 → 分类整理 → 复习资料生成",
-  "author": "law-import contributors",
+  "description": "期末一键复习 — 考前72小时，把课件/笔记/阅读材料/PDF/图片/扫描件一键整理成可打印的逐章复习稿",
+  "author": "期末一键复习 contributors",
   "license": "MIT",
   "skills": [
     {
-      "name": "law-import",
-      "description": "Import law study materials from WeChat/QQ/downloads, classify by material type, organize by course, and generate exam review materials.",
+      "name": "final-review",
+      "description": "Import course study materials from WeChat/QQ/downloads, classify by material type, organize by course, and generate final-exam review materials.",
       "triggers": [
-        "法学导入", "导入资料", "整理下载", "从微信整理", "从QQ整理",
-        "法学资料整理", "复习资料", "整理复习", "备考材料", "期末复习",
-        "法学期末", "生成复习", "/law-import"
+        "期末复习", "考前冲刺", "考前72小时", "期末突击", "一键复习",
+        "整理复习资料", "备考材料", "生成复习", "/final-review"
       ],
       "entry": "SKILL.md"
     }

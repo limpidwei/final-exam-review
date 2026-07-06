@@ -1,13 +1,13 @@
-# 法学期末复习笔记高效整理
+# 期末一键复习（Final Review）
 
-**微信/QQ下载 → 自动整理 → 逐章复习稿PDF，一条管线走到底。**
+**考前72小时急救：把课件(PPT)、课堂笔记、阅读材料、PDF、图片、扫描件一键变成可打印的逐章期末复习稿。**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
 
 ## 一句话说明
 
-把微信/QQ里乱七八糟下载的法学资料（课件、笔记、往年题、案例...），自动整理成按课程分类的项目目录，**并直接生成逐章复习稿 PDF**。
+专为期末突击党和中英双语课程学生设计：自动发现课件(PPT)、课堂笔记、阅读材料、PDF、图片、扫描件，按章节整理并生成密度可选（精简/标准/详细）的期末复习 PDF。
 
 ## 安装（一条命令）
 
@@ -15,20 +15,20 @@
 
 ### Windows（PowerShell）
 ```powershell
-git clone https://github.com/limpidwei/law-exam-prep.git $env:USERPROFILE\.claude\skills\fuxi; cd $env:USERPROFILE\.claude\skills\fuxi; pip install -r requirements.txt 2>$null; python install.py
+git clone https://github.com/limpidwei/final-exam-review.git $env:USERPROFILE\.claude\skills\final-review; cd $env:USERPROFILE\.claude\skills\final-review; pip install -r requirements.txt 2>$null; python install.py
 ```
 
 ### macOS（Terminal）
 ```bash
-git clone https://github.com/limpidwei/law-exam-prep.git ~/.claude/skills/fuxi && cd ~/.claude/skills/fuxi && pip install -r requirements.txt 2>/dev/null; python3 install.py
+git clone https://github.com/limpidwei/final-exam-review.git ~/.claude/skills/final-review && cd ~/.claude/skills/final-review && pip install -r requirements.txt 2>/dev/null; python3 install.py
 ```
 
 ### Linux（Terminal）
 ```bash
-git clone https://github.com/limpidwei/law-exam-prep.git ~/.claude/skills/fuxi && cd ~/.claude/skills/fuxi && pip install -r requirements.txt 2>/dev/null; python3 install.py
+git clone https://github.com/limpidwei/final-exam-review.git ~/.claude/skills/final-review && cd ~/.claude/skills/final-review && pip install -r requirements.txt 2>/dev/null; python3 install.py
 ```
 
-装完直接用。任意 AI Coding Agent 里说 `/fuxi` 或 "帮我整理法学资料"。
+装完直接用。任意 AI Coding Agent 里说 `/final-review` 或 "帮我整理复习资料"。
 
 **没有 Python？** 也能用——Tier 0 模式下 `.md` `.txt` `.html` 直接处理，资料分类、课程命名、复习生成全支持。遇到 `.docx` `.pptx` 会提示你补装 Python。
 
@@ -37,7 +37,7 @@ git clone https://github.com/limpidwei/law-exam-prep.git ~/.claude/skills/fuxi &
 ```
 微信/QQ下载 → 自动发现 → 视觉/OCR → 类型分类 → 课程命名 → 去重 → 章节整合 → 复习生成 → PDF输出
     │            │           │            │            │        │        │         │
-  手动下载    file_finder  模型视觉优先  教材?笔记?    "民法总论"  相似度   教材+笔记  考纲→考点
+  手动下载    file_finder  模型视觉优先  教材?笔记?    "国际经济学"  相似度   教材+笔记  考纲→考点
   指定路径    .py          OCR降级      重点?案例?    用户说了算  检测     阅读材料   逐章四段式
   不知道在哪               零依赖不跳过   往年题?                           案例归属   考点速记
                                          考纲?                                      结构化内容
@@ -59,7 +59,7 @@ git clone https://github.com/limpidwei/law-exam-prep.git ~/.claude/skills/fuxi &
 ## 架构
 
 ```
-law-import/
+final-review/
 ├── SKILL.md                    # 唯一源文件 — 7-Phase 完整工作流
 ├── README.md
 ├── LICENSE                     # MIT
@@ -92,19 +92,19 @@ law-import/
 
 | Agent | 类型 | 检测方式 | 安装位置 |
 |-------|------|---------|---------|
-| Claude Code (CLI) | skill_md | `~/.claude/` | `.claude/skills/law-import/` |
-| Claude Code (IDE) | skill_md | `.claude/skills/` | `.claude/skills/law-import/` |
+| Claude Code (CLI) | skill_md | `~/.claude/` | `.claude/skills/final-review/` |
+| Claude Code (IDE) | skill_md | `.claude/skills/` | `.claude/skills/final-review/` |
 | Cursor | skill + rule | `~/.cursor/` | `.cursor/skills/` + `.cursor/rules/` |
 | Windsurf | skill + rule | `~/.windsurf/` | `.windsurf/skills/` + `.windsurf/rules/` |
 | Codex (OpenAI) | skill + plugin | `~/.codex/` | `.codex/skills/` + `.codex/plugins/` |
-| Cline (VS Code) | clinerules | `~/.clinerules/` | `.clinerules/law-import.md` |
+| Cline (VS Code) | clinerules | `~/.clinerules/` | `.clinerules/final-review.md` |
 | GitHub Copilot | instructions | `~/.github/` | `.github/copilot-instructions.md` |
-| Gemini CLI | skill_md | `~/.gemini/` | `.gemini/skills/law-import/` |
-| OpenCode CLI | skill_md | `~/.opencode/` | `.opencode/skills/law-import/` |
-| Kimi Code | skill_md | `~/.kimi/` | `.kimi/skills/law-import/` |
-| OpenCalw | skill_md | `~/.opencalw/` | `.opencalw/skills/law-import/` |
-| Augment Code | rule | `~/.augment/` | `.augment/rules/law-import.md` |
-| Continue.dev | rule | `~/.continue/` | `.continue/rules/law-import.md` |
+| Gemini CLI | skill_md | `~/.gemini/` | `.gemini/skills/final-review/` |
+| OpenCode CLI | skill_md | `~/.opencode/` | `.opencode/skills/final-review/` |
+| Kimi Code | skill_md | `~/.kimi/` | `.kimi/skills/final-review/` |
+| OpenCalw | skill_md | `~/.opencalw/` | `.opencalw/skills/final-review/` |
+| Augment Code | rule | `~/.augment/` | `.augment/rules/final-review.md` |
+| Continue.dev | rule | `~/.continue/` | `.continue/rules/final-review.md` |
 
 **只有一个源文件** — `SKILL.md`。所有 agent 指向同一份内容，`install.py` 负责拷贝/链接。
 
@@ -169,7 +169,7 @@ law-import/
 导入后自动生成：
 
 ```
-法学/
+复习资料/
 └── {课程名}/
     ├── 笔记/                   ← 各章节整合后的笔记
     ├── 重点与考纲/
@@ -184,13 +184,13 @@ law-import/
     └── {课程}概述.md
 ```
 
-## 已融合 law-review-generator
+## Phase 7 复习生成
 
-原 `law-review-generator` skill 已内化为 **Phase 7: 复习资料生成**。导入管线和复习生成现在是同一条工作流：
+原独立的复习生成模块已内化为 **Phase 7: 复习资料生成**。导入管线和复习生成现在是同一条工作流：
 
-- **从零开始**：`/law-import` → 发现文件 → 导入整理 → 自动进入复习生成
-- **已有资料**：`/law-import 生成复习 for {课程名}` → 跳过导入，直接 Phase 7
-- **旧触发词兼容**：`生成复习资料` `整理复习` `备考材料` `期末复习` 等仍有效，自动路由到 Phase 7
+- **从零开始**：`/final-review` → 发现文件 → 导入整理 → 自动进入复习生成
+- **已有资料**：`/final-review 生成复习 for {课程名}` → 跳过导入，直接 Phase 7
+- **触发词兼容**：`生成复习资料` `整理复习` `备考材料` `期末复习` `考前72小时` `一键复习` 等仍有效，自动路由到 Phase 7
 
 ## 开源协议
 

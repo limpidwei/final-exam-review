@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-law-import environment bootstrap script.
+期末一键复习（Final Review）环境引导脚本。
 
 Detects Python environment and installs all dependencies.
 If Python isn't available, this script can't run — but the skill's
@@ -21,6 +21,12 @@ import subprocess
 import sys
 import os
 import platform as pf
+
+# Ensure UTF-8 output on Windows
+try:
+    sys.stdout.reconfigure(encoding='utf-8')
+except Exception:
+    pass
 
 REQUIREMENTS_FILE = os.path.join(os.path.dirname(__file__), "requirements.txt")
 
@@ -156,7 +162,7 @@ def print_tier_info():
 
 def main():
     print("=" * 60)
-    print("  law-import — Environment Setup")
+    print("  期末一键复习 — 环境检测与依赖安装")
     print("=" * 60)
 
     if "--check" in sys.argv:

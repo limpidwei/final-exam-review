@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Multi-agent install script for law-import skill.
+Multi-agent install script for final-review skill.
 
 Detects which AI coding agents are installed and deploys the skill
 to the correct directories. Reads agents.json for path mappings.
@@ -27,8 +27,14 @@ import shutil
 import sys
 from pathlib import Path
 
+# Ensure UTF-8 output on Windows
+try:
+    sys.stdout.reconfigure(encoding='utf-8')
+except Exception:
+    pass
+
 SCRIPT_DIR = Path(__file__).parent.absolute()
-SKILL_NAME = "law-import"
+SKILL_NAME = "final-review"
 
 def load_config():
     with open(SCRIPT_DIR / "agents.json", "r", encoding="utf-8") as f:
@@ -68,9 +74,10 @@ def check_agent(config: dict, agent_key: str) -> dict:
         if check_expanded and os.path.exists(check_expanded):
             found.append(check_expanded)
 
-    # Also check if target path already has law-import
+    # Also check if target path already has final-review
     paths = agent.get("paths", {})
     target_base = paths.get(plat_key)
+    target = None
     if target_base:
         target = expand_path(target_base)
         already_installed = target and os.path.exists(os.path.join(target, "SKILL.md"))
@@ -84,7 +91,7 @@ def check_agent(config: dict, agent_key: str) -> dict:
         "detected": len(found) > 0,
         "evidence": found,
         "already_installed": already_installed,
-        "target": target_base,
+        "target": target,
         "vault_path": agent.get("vault_path"),
         "note": agent.get("note", ""),
     }
@@ -142,7 +149,7 @@ def install_agent(config: dict, agent_key: str, dry_run: bool = False) -> dict:
 def list_agents(config: dict) -> None:
     """Print status of all supported agents."""
     print(f"\n{'='*70}")
-    print(f"  law-import — Multi-Agent Installation Status")
+    print(f"  期末一键复习 — 多 Agent 安装状态")
     print(f"  Platform: {pf.system()} ({get_platform_key()})")
     print(f"{'='*70}\n")
 
@@ -163,7 +170,7 @@ def list_agents(config: dict) -> None:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Install law-import skill for AI coding agents"
+        description="Install final-review skill for AI coding agents"
     )
     parser.add_argument("--list", action="store_true", help="List supported agents and exit")
     parser.add_argument("--agent", type=str, help="Install for a specific agent only")
@@ -199,7 +206,7 @@ def main():
         print("Or run with --list to see what's supported.")
         sys.exit(0)
 
-    print(f"\n{' Installing law-import for ' + str(len(targets)) + ' agent(s) ':=^60}\n")
+    print(f"\n{' 正在为 期末一键复习 安装到 ' + str(len(targets)) + ' 个 agent ':=^60}\n")
 
     results = []
     for agent_key in targets:

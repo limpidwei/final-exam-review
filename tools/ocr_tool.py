@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-OCR tool with auto-fallback for law-import skill.
+OCR tool with auto-fallback for 期末一键复习（Final Review）.
 
 Usage:
     python ocr_tool.py --input image.png --lang chi_sim+eng
@@ -246,7 +246,7 @@ def ocr_batch(directory: str, languages: Optional[list] = None) -> list:
     return results
 
 def main():
-    parser = argparse.ArgumentParser(description="OCR tool for law-import skill")
+    parser = argparse.ArgumentParser(description="OCR tool for 期末一键复习（Final Review）")
     parser.add_argument("--input", "-i", help="Input image/PDF file or directory (for --batch)")
     parser.add_argument("--mode", "-m", choices=["image", "pdf", "batch"], default="image",
                         help="OCR mode")
