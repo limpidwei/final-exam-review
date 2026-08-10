@@ -7,9 +7,11 @@ ebooklib>=0.18
 chardet>=5.0.0
 beautifulsoup4>=4.12.0
 
-# OCR (at least one required)
-easyocr>=1.7.0          # Recommended: GPU-accelerated, Chinese+English
-# pytesseract>=0.3.10   # Alternative: lighter, requires system Tesseract
+# OCR (at least one required; auto priority: paddleocr > easyocr > tesseract)
+# paddlepaddle>=3.2 & paddleocr>=3.3  # Best Chinese accuracy. NOTE: paddle 3.3.x on
+#                                     # Windows CPU requires enable_mkldnn=False (already set in ocr_tool.py)
+# easyocr>=1.7.0          # Alternative: deep-learning OCR via torch
+# pytesseract>=0.3.10     # Alternative: lightest, requires system Tesseract
 
 # PDF-to-image (for scanned PDF OCR)
 pdf2image>=1.16.0       # Requires poppler system package
