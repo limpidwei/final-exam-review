@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Update SKILL.md with new density targets and formatting requirements."""
 import sys
+from pathlib import Path
 sys.stdout.reconfigure(encoding='utf-8')
 
-SKILL = r'C:\Users\86186\.claude\skills\final-review\SKILL.md'
+SKILL = str(Path.home() / '.claude' / 'skills' / 'final-review' / 'SKILL.md')
 
 with open(SKILL, 'r', encoding='utf-8') as f:
     content = f.read()
